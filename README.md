@@ -10,3 +10,4 @@ Kotlin + Jetpack Compose starter project for the Barakah Travel staff administra
 - Documents, packages, bookings, payments and travel schedule sample screens
 - Settings screen
 - Clear demo-mode notices
+  
