@@ -42,7 +42,7 @@ The project also considers the importance of accurate customer information, reli
 
 The technologies used in this project depend on the development environment and implementation. This section should be updated to reflect the actual tools and programming languages used.
 
-Programming Language: 
+Programming Language: HTML and Kotlin
 
 Database: 
 
