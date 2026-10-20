@@ -70,12 +70,13 @@ Project Management:
 
 The project follows a structured development process that includes requirements gathering, system planning, design, implementation, and testing. Version control through GitHub helps track changes made to the project and maintain a record of development progress.
 
+# Future Improvements
+
+Possible future improvements include online payments, automated booking confirmations, customer notifications, live flight information, improved package comparisons, and an online customer portal. These additions could help Barakah Travel and Tours improve its services and provide customers with a more convenient travel planning experience.
+
 # Conclusion
 
 The Barakah Travel and Tours Umrah Travel Management System aims to support a business that specialises in making Umrah travel more affordable and accessible. By providing a centralised way to manage travel packages, customer details, and bookings, the project seeks to improve organisation, reduce manual work, and support the company's goal of delivering convenient travel services to its customers.
 
 Testing is important to ensure that the system's implemented features work as expected and that errors can be identified and corrected.
 
-# Future Improvements
-
-Possible future improvements include online payments, automated booking confirmations, customer notifications, live flight information, improved package comparisons, and an online customer portal. These additions could help Barakah Travel and Tours improve its services and provide customers with a more convenient travel planning experience.
