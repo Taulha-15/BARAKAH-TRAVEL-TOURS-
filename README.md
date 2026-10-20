@@ -46,7 +46,7 @@ Programming Language: HTML and Kotlin
 
 Database:
 
-Development Environment:
+Development Environment: Android Studio
 
 Version Control: Git and GitHub
 
