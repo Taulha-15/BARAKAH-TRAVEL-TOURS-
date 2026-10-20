@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barakah Travel & Tours | Umrah Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">BT</div>
+        <div class="brand-text">
+          <h1>Barakah</h1>
+          <span>Travel & Tours</span>
+        </div>
+      </div>
+
+      <div class="menu-label">MAIN MENU</div>
+      <nav class="nav">
+        <button class="nav-link active" data-page="dashboard"><span class="nav-icon">⌂</span><span>Dashboard</span></button>
+        <button class="nav-link" data-page="customers"><span class="nav-icon">♙</span><span>Customers</span></button>
+        <button class="nav-link" data-page="applications"><span class="nav-icon">▤</span><span>Applications</span></button>
+        <button class="nav-link" data-page="documents"><span class="nav-icon">▣</span><span>Documents</span></button>
+        <button class="nav-link" data-page="packages"><span class="nav-icon">✈</span><span>Umrah Packages</span></button>
+        <button class="nav-link" data-page="bookings"><span class="nav-icon">▧</span><span>Bookings</span></button>
+        <button class="nav-link" data-page="payments"><span class="nav-icon">R</span><span>Payments</span></button>
+        <button class="nav-link" data-page="schedules"><span class="nav-icon">◷</span><span>Travel Schedules</span></button>
+        <button class="nav-link" data-page="reports"><span class="nav-icon">▥</span><span>Reports</span></button>
+        <button class="nav-link" data-page="settings"><span class="nav-icon">⚙</span><span>Profile / Settings</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="help-box">
+          <strong>Need help?</strong>
+          <span>Check the system guide for staff.</span>
+        </div>
+        <button class="logout" id="logoutBtn"><span class="nav-icon">↪</span><span>Logout</span></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="top-title">
+          <span class="mobile-brand">Barakah Travel & Tours</span>
+          <span class="breadcrumb">Staff Portal</span>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" title="Notifications">🔔<span class="notification-dot"></span></button>
+          <div class="profile">
+            <div class="avatar">A</div>
+            <div class="profile-info">
+              <strong>Admin User</strong>
+              <small>Administrator</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div id="pageContent" class="content"></div>
+    </main>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
