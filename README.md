@@ -8,6 +8,19 @@ The project consists of an Android staff application, an ASP.NET Core Web API, a
 
 The system aims to reduce manual administration, improve access to customer records and provide a more organised approach to managing Umrah travel services.
 
+
+## Task 2 – Video Demonstration
+
+A demonstration of the Barakah Travel & Tours
+Integrated Umrah Management System, including the
+Android staff application, Firebase Google Sign-In,
+customer management, application tracking,
+document verification, settings, and system integration.
+
+**Watch the demonstration on YouTube:**
+https://youtu.be/G3n2f-ZlwRU
+
+
 ## Project Objectives
 
 - Provide a centralised system for managing Umrah-related information.
