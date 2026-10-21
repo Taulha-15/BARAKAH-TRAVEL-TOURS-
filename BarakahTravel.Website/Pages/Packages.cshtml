@@ -1,0 +1,115 @@
+﻿@page
+@model BarakahTravel.Web.Pages.PackagesModel
+
+@{
+    ViewData["Title"] = "Umrah Packages";
+}
+
+<section class="packages-hero">
+    <div class="packages-hero-inner">
+
+        <h1>Explore Our Umrah Packages</h1>
+
+        <p>
+            Discover travel options designed to help you
+            prepare for a meaningful Umrah journey.
+        </p>
+
+    </div>
+</section>
+
+<section class="packages-section">
+    <div class="packages-container">
+
+        <div class="packages-heading">
+            <span class="packages-label">
+                YOUR SACRED JOURNEY
+            </span>
+
+            <h2>Find Your Ideal Package</h2>
+
+            <p>
+                Browse our available Umrah packages
+                and explore the options for your journey.
+            </p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="packages-empty">
+                <h3>Unable to Load Packages</h3>
+                <p>@Model.ErrorMessage</p>
+            </div>
+        }
+        else if (Model.Packages.Count == 0)
+        {
+            <div class="packages-empty">
+                <h3>No Packages Available</h3>
+                <p>
+                    Please check back for upcoming Umrah packages.
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="packages-grid">
+
+                @foreach (var package in Model.Packages)
+                {
+                    <article class="package-card">
+
+                        <div class="package-card-content">
+
+                            <span class="package-card-label">
+                                UMRAH TRAVEL
+                            </span>
+
+                            <h3>@package.PackageName</h3>
+
+                            <p>@package.Description</p>
+
+                            <div class="package-card-details">
+
+                                <p>
+                                    <strong>Duration:</strong>
+                                    @package.DurationDays days
+                                </p>
+
+                                <p>
+                                    <strong>Departure:</strong>
+                                    @package.DepartureDate.ToString("dd MMM yyyy")
+                                </p>
+
+                                <p>
+                                    <strong>Return:</strong>
+                                    @package.ReturnDate.ToString("dd MMM yyyy")
+                                </p>
+
+                            </div>
+
+                            <div class="package-card-footer">
+
+                                <span class="package-price">
+                                    @package.Price.ToString(
+                                    "C0",
+                                                        new System.Globalization.CultureInfo("en-ZA"))
+                        </span>
+
+                        <a asp-page="/Apply"
+                           asp-route-packageId="@package.PackageId"
+                           class="btn btn-success">
+                            Apply Now
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+                        }
+
+            </div>
+        }
+
+    </div>
+</section>

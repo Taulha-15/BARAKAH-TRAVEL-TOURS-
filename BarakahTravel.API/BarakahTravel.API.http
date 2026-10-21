@@ -1,0 +1,6 @@
+@BarakahTravel.API_HostAddress = http://localhost:5182
+
+GET {{BarakahTravel.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

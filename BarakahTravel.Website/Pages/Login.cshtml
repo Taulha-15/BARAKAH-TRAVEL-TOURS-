@@ -1,0 +1,67 @@
+﻿@page
+@model BarakahTravel.Web.Pages.LoginModel
+
+@{
+    ViewData["Title"] = "Customer Login";
+}
+
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+
+                <h1 class="text-center mb-3">
+                    Customer Login
+                </h1>
+
+                <p class="text-center text-muted mb-4">
+                    Sign in to continue your Umrah journey.
+                </p>
+
+                <form method="post" asp-antiforgery="true">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Email"
+                               class="form-label"></label>
+
+                        <input asp-for="Input.Email"
+                               class="form-control"
+                               autocomplete="email" />
+
+                        <span asp-validation-for="Input.Email"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Password"
+                               class="form-label"></label>
+
+                        <input asp-for="Input.Password"
+                               type="password"
+                               class="form-control"
+                               autocomplete="current-password" />
+
+                        <span asp-validation-for="Input.Password"
+                              class="text-danger"></span>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-success w-100">
+                        Login to My Portal
+                    </button>
+
+                </form>
+
+                <p class="text-center mt-4 mb-0">
+                    Have a registration code?
+                    <a asp-page="/Register">Register here</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+

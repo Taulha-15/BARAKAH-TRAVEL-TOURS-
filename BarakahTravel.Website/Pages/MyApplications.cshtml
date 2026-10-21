@@ -1,0 +1,75 @@
+﻿@page
+@model BarakahTravel.Web.Pages.MyApplicationsModel
+
+@{
+    ViewData["Title"] = "My Umrah Applications";
+}
+
+<section class="container py-5">
+
+    <h1>My Umrah Applications</h1>
+
+    <p class="text-muted">
+        View your Umrah applications and track their progress.
+    </p>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @Model.ErrorMessage
+        </div>
+    }
+    else if (Model.Applications.Count == 0)
+    {
+        <div class="alert alert-info mt-4">
+            You have not submitted any Umrah applications yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive mt-4">
+            <table class="table table-striped table-bordered align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Umrah Package</th>
+                        <th>Status</th>
+                        <th>Submitted Date</th>
+                        <th>Reviewed Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var application in Model.Applications)
+                    {
+                        <tr>
+                            <td>@application.ApplicationId</td>
+                            <td>@application.PackageName</td>
+                            <td>
+                                <span class="badge bg-success">
+                                    @application.ApplicationStatus
+                                </span>
+                            </td>
+                            <td>
+                                @(application.SubmittedAt?.ToString("dd MMM yyyy")
+                                    ?? "Not submitted")
+                            </td>
+                            <td>
+                                @(application.ReviewedAt?.ToString("dd MMM yyyy")
+                                    ?? "Not reviewed")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+
+    <a asp-page="/CustomerDashboard"
+       class="btn btn-outline-success mt-4">
+        Back to My Portal
+    </a>
+
+</section>

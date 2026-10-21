@@ -1,0 +1,249 @@
+﻿@page
+@model BarakahTravel.Web.Pages.RegisterModel
+
+@{
+    ViewData["Title"] = "Customer Registration";
+}
+
+<section class="register-section">
+
+    <div class="register-container">
+
+        <!-- PAGE HEADING -->
+        <div class="register-intro">
+
+            <span class="register-label">
+                BARAKAH TRAVEL TOURS
+            </span>
+
+            <h1>Create Your Account</h1>
+
+            <p>
+                Begin your sacred journey by creating
+                your secure customer account.
+            </p>
+
+        </div>
+
+        <!-- REGISTRATION FORM -->
+        <div class="register-card">
+
+            <div class="register-notice">
+
+                <strong>Registration Code Required</strong>
+
+                <p>
+                    To protect your personal information,
+                    you must obtain a registration code
+                    from Barakah Travel Tours staff
+                    before creating an account.
+                </p>
+
+            </div>
+
+            <form method="post" asp-antiforgery="true">
+
+                <!-- GENERAL VALIDATION ERRORS -->
+                <div asp-validation-summary="ModelOnly"
+                     class="register-validation"
+                     role="alert">
+                </div>
+
+                <!-- SUCCESS MESSAGE -->
+                @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+                {
+                    <div class="register-success"
+                         role="status">
+
+                        @Model.SuccessMessage
+
+                    </div>
+                }
+
+                <!-- REGISTRATION CODE -->
+                <div class="register-field">
+
+                    <label asp-for="Input.RegistrationCode">
+                        Registration Code
+                    </label>
+
+                    <input asp-for="Input.RegistrationCode"
+                           type="text"
+                           class="register-input"
+                           placeholder="Enter your staff-issued code"
+                           maxlength="50"
+                           autocomplete="off"
+                           required />
+
+                    <span asp-validation-for="Input.RegistrationCode"
+                          class="register-field-error">
+                    </span>
+
+                </div>
+
+                <!-- FIRST NAME AND SURNAME -->
+                <div class="register-row">
+
+                    <div class="register-field">
+
+                        <label asp-for="Input.FirstName">
+                            First Name
+                        </label>
+
+                        <input asp-for="Input.FirstName"
+                               type="text"
+                               class="register-input"
+                               placeholder="First name"
+                               maxlength="50"
+                               autocomplete="given-name"
+                               required />
+
+                        <span asp-validation-for="Input.FirstName"
+                              class="register-field-error">
+                        </span>
+
+                    </div>
+
+                    <div class="register-field">
+
+                        <label asp-for="Input.Surname">
+                            Surname
+                        </label>
+
+                        <input asp-for="Input.Surname"
+                               type="text"
+                               class="register-input"
+                               placeholder="Surname"
+                               maxlength="50"
+                               autocomplete="family-name"
+                               required />
+
+                        <span asp-validation-for="Input.Surname"
+                              class="register-field-error">
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- EMAIL ADDRESS -->
+                <div class="register-field">
+
+                    <label asp-for="Input.Email">
+                        Email Address
+                    </label>
+
+                    <input asp-for="Input.Email"
+                           type="email"
+                           class="register-input"
+                           placeholder="Enter your email address"
+                           maxlength="100"
+                           autocomplete="email"
+                           required />
+
+                    <span asp-validation-for="Input.Email"
+                          class="register-field-error">
+                    </span>
+
+                </div>
+
+                <!-- PHONE NUMBER -->
+                <div class="register-field">
+
+                    <label asp-for="Input.Phone">
+                        Phone Number
+                    </label>
+
+                    <input asp-for="Input.Phone"
+                           type="tel"
+                           class="register-input"
+                           placeholder="Enter your phone number"
+                           maxlength="30"
+                           autocomplete="tel"
+                           required />
+
+                    <span asp-validation-for="Input.Phone"
+                          class="register-field-error">
+                    </span>
+
+                </div>
+
+                <!-- PASSWORD FIELDS -->
+                <div class="register-row">
+
+                    <div class="register-field">
+
+                        <label asp-for="Input.Password">
+                            Password
+                        </label>
+
+                        <input asp-for="Input.Password"
+                               type="password"
+                               class="register-input"
+                               placeholder="Create a password"
+                               minlength="12"
+                               maxlength="128"
+                               autocomplete="new-password"
+                               required />
+
+                        <span asp-validation-for="Input.Password"
+                              class="register-field-error">
+                        </span>
+
+                    </div>
+
+                    <div class="register-field">
+
+                        <label asp-for="Input.ConfirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <input asp-for="Input.ConfirmPassword"
+                               type="password"
+                               class="register-input"
+                               placeholder="Confirm your password"
+                               minlength="12"
+                               maxlength="128"
+                               autocomplete="new-password"
+                               required />
+
+                        <span asp-validation-for="Input.ConfirmPassword"
+                              class="register-field-error">
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- PASSWORD GUIDANCE -->
+                <p class="register-password-hint">
+                    Your password must contain at least
+                    12 characters.
+                </p>
+
+                <!-- CREATE ACCOUNT BUTTON -->
+                <button type="submit"
+                        class="register-button">
+
+                    Create Account
+
+                </button>
+
+                <!-- LOGIN LINK -->
+                <p class="register-login">
+
+                    Already have an account?
+
+                    <a asp-page="/Login">
+                        Log In
+                    </a>
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
