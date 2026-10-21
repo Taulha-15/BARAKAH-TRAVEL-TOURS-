@@ -1,68 +1,228 @@
-# Barakah Travel and Tours – Umrah Travel Management System
+# Barakah Travel & Tours – Integrated Umrah Management System
 
-# Project Overview
+## Project Overview
 
-Barakah Travel and Tours is a travel and tourism business that focuses on providing affordable and convenient travel packages for individuals and families wishing to perform Umrah. The business aims to make the journey more accessible by offering flight arrangements, accommodation options, transport services, and travel packages that suit different budgets and needs.
+Barakah Travel & Tours is an Umrah travel management system developed to help organise customer information, travel applications, supporting documents, bookings and travel-related services.
 
-The purpose of this project is to develop an Umrah Travel Management System that helps organise and manage the company's travel services efficiently. The system is intended to simplify the process of managing travel packages, customer information, bookings, and other important travel arrangements.
+The project consists of an Android staff application, an ASP.NET Core Web API, a customer-facing website and an Azure SQL relational database.
 
-# Project Objectives
+The system aims to reduce manual administration, improve access to customer records and provide a more organised approach to managing Umrah travel services.
 
-The main objective of this project is to improve the way Barakah Travel and Tours manages its daily operations. By using a digital system, the business can organise customer details, manage available travel packages, keep track of bookings, and provide customers with a more convenient booking experience.
+## Project Objectives
 
-The system also aims to reduce manual paperwork, improve the accuracy of information, and make it easier for the business to manage its services in one central location.
+- Provide a centralised system for managing Umrah-related information.
+- Allow authorised staff to securely access customer and application records.
+- Connect the Android application to a backend API and relational database.
+- Support the management and verification of customer documents.
+- Improve the usability and efficiency of administrative processes.
+- Apply version control and automated build testing during development.
 
-# Key Features
+## System Components
 
-Depending on the implemented functionality, the system may include the following features:
+### 1. Android Staff Application
 
-Travel Package Management: Create, update, and manage affordable Umrah travel packages.
+Developed using **Kotlin and Jetpack Compose** in Android Studio.
 
-Flight Information: Manage flight details, departure dates, and travel arrangements.
+Implemented features include:
 
-Customer Management: Store and manage customer information.
+- Firebase Google Sign-In authentication.
+- Staff dashboard displaying live database record counts.
+- Customer records retrieved through the API.
+- Travel application records and application management.
+- Customer document listing and secure document viewing.
+- Settings screen with user preferences, staff information and sign-out.
+- Navigation between administrative sections.
 
-Booking Management: Record and track customer bookings and their details.
+Additional sections for packages, bookings, payments and travel schedules are included in the application structure but are not yet fully integrated.
 
-Accommodation and Transport: Organise accommodation options and transport arrangements where applicable.
+The application has been tested on a physical Samsung Galaxy S26 device.
 
-Administrative Functions: Allow authorised staff to manage packages, customer records, and bookings.
+### 2. ASP.NET Core Web API
 
-# Target Users
+Developed using **C# and ASP.NET Core 8**.
 
-The system is designed for Barakah Travel and Tours staff who are responsible for managing travel packages and customer bookings. It also considers customers who require an accessible and convenient way to explore Umrah travel options and make travel arrangements.
+The API provides the communication layer between the applications and the Azure SQL database.
 
-# Design Considerations
+Its responsibilities include retrieving and managing system information, supporting administrative operations and handling requests from the connected applications.
 
-The system is designed with simplicity and usability in mind. The aim is to provide a user-friendly interface that allows users to navigate between different sections without unnecessary difficulty. Clear headings, organised information, and straightforward navigation help make the system easier to understand and use.
+### 3. Customer Website
 
-The project also considers the importance of accurate customer information, reliable booking records, and the protection of personal data. These considerations are important because the business handles customer details and travel arrangements.
+A customer-facing website is included in the repository.
 
-# Technologies Used
+The website provides a web-based interface for the customer side of the Umrah travel management system.
 
-The technologies used in this project depend on the development environment and implementation. This section should be updated to reflect the actual tools and programming languages used.
+### 4. Azure SQL Database
 
-Programming Language: HTML and Kotlin
+The system uses **Microsoft Azure SQL Database** to store relational data.
 
-Database:
+The database contains 11 tables covering:
 
-Development Environment: Android Studio
+- Customers
+- CustomerAccounts
+- CustomerRegistrationCodes
+- Users
+- Applications
+- Documents
+- Packages
+- Bookings
+- Payments
+- TravelDetails
+- TravelSchedules
 
-Version Control: Git and GitHub
+The database structure includes primary keys and foreign-key relationships to support data integrity.
 
-Project Management:
+## Technologies Used
 
-# Project Development
+| Component | Technology |
+|---|---|
+| Android application | Kotlin, Jetpack Compose |
+| Android development | Android Studio |
+| Authentication | Firebase Authentication, Google Sign-In |
+| Backend API | C#, ASP.NET Core 8 |
+| Customer website | ASP.NET Core, Razor, HTML, CSS, JavaScript |
+| Database | Microsoft Azure SQL Database |
+| Backend development | Visual Studio |
+| Version control | Git, GitHub, Azure DevOps |
+| Automated testing | GitHub Actions, Gradle |
+| API connectivity | HTTPS and development tunnelling |
 
-The project follows a structured development process that includes requirements gathering, system planning, design, implementation, and testing. Version control through GitHub helps track changes made to the project and maintain a record of development progress.
+## Repository Structure
 
-# Future Improvements
+The repository includes:
 
-Possible future improvements include online payments, automated booking confirmations, customer notifications, live flight information, improved package comparisons, and an online customer portal. These additions could help Barakah Travel and Tours improve its services and provide customers with a more convenient travel planning experience.
+- `app/` – Android application source code and resources.
+- `gradlew` – Gradle wrapper script.
+- `settings.gradle.kts` – Android Gradle project configuration.
+- `BarakahTravel.API/` – ASP.NET Core backend API.
+- `BarakahTravel.Website/` – Customer-facing website.
+- `database/` – Database documentation and schema export.
+- `.github/workflows/android-ci.yml` – GitHub Actions workflow.
+- `README.md` – Project documentation.
 
-# Conclusion
+Additional project files and supporting resources are also included.
 
-The Barakah Travel and Tours Umrah Travel Management System aims to support a business that specialises in making Umrah travel more affordable and accessible. By providing a centralised way to manage travel packages, customer details, and bookings, the project seeks to improve organisation, reduce manual work, and support the company's goal of delivering convenient travel services to its customers.
+## Installation and Setup
 
-Testing is important to ensure that the system's implemented features work as expected and that errors can be identified and corrected.
+### Android Staff Application
 
+1. Clone the GitHub repository.
+2. Open the repository as a project in Android Studio.
+3. Allow Gradle to synchronise the project dependencies.
+4. Configure Firebase using the appropriate `google-services.json` file.
+5. Ensure the backend API is accessible and configured correctly.
+6. Connect an Android device or start a compatible emulator.
+7. Build and run the Android application.
+
+**Note:** Firebase configuration files and private credentials should be managed securely and must not be exposed publicly.
+
+### ASP.NET Core API
+
+1. Open the API project in Visual Studio.
+2. Ensure the .NET 8 SDK is installed.
+3. Configure the database connection using secure application configuration.
+4. Ensure the Azure SQL database is accessible.
+5. Build and run the API.
+6. Verify that the Android application can communicate with the API.
+
+### Customer Website
+
+1. Open the website project in Visual Studio.
+2. Restore the required .NET dependencies.
+3. Configure the website's API and application settings.
+4. Build and run the website.
+
+Some functionality requires the API, database and authentication services to be available.
+
+## Automated Testing and Continuous Integration
+
+The project uses **GitHub Actions** for automated Android builds and testing.
+
+The workflow is located at:
+
+`.github/workflows/android-ci.yml`
+
+The workflow runs when:
+
+- Changes are pushed to the `main` branch.
+- A pull request targets `main`.
+- The workflow is started manually.
+
+### Workflow Steps
+
+1. Check out the repository.
+2. Configure Java 17.
+3. Restore Firebase configuration from a GitHub Actions secret.
+4. Run the Android unit-test task.
+5. Build the Android debug APK.
+
+### Gradle Commands
+
+Run Android unit tests:
+
+```bash
+./gradlew :app:testDebugUnitTest --no-daemon
+```
+
+Build the debug APK:
+
+```bash
+./gradlew :app:assembleDebug --no-daemon
+```
+
+### Continuous Integration Status
+
+The Android build and test workflow has completed successfully on GitHub Actions.
+
+The successful run confirms that the configured Android build and test tasks execute in the CI environment. It does not replace manual testing of application functionality.
+
+## Testing and Validation
+
+Testing activities include:
+
+- Running the Android application on a physical Samsung Galaxy S26.
+- Verifying Firebase Google Sign-In.
+- Checking dashboard data retrieved from the API.
+- Testing customer and application information screens.
+- Checking document access and viewing.
+- Testing settings and sign-out functionality.
+- Verifying communication with the ASP.NET Core API.
+- Checking relational database structure and data.
+- Running automated Android build and test tasks through GitHub Actions.
+
+## Security Considerations
+
+The system incorporates authentication and controlled access to application functionality.
+
+Sensitive configuration values, database passwords and private credentials should not be committed to public repositories.
+
+Firebase configuration required for automated builds is supplied through GitHub Actions repository secrets.
+
+Customer documents and personal information must be handled securely.
+
+## Version Control and Collaboration
+
+Git is used to track development changes.
+
+**Azure DevOps** is used for project source control and collaboration, while **GitHub** contains the integrated project and GitHub Actions workflow.
+
+Pull requests and commits provide a record of project development and integration.
+
+## Future Improvements
+
+Potential future enhancements include:
+
+- Full Android integration of package management.
+- Complete booking and payment management screens.
+- Travel schedule management.
+- Automated customer notifications.
+- Online payment integration.
+- Improved reporting and administrative analytics.
+- Additional automated unit and integration tests.
+
+## Conclusion
+
+The Barakah Travel & Tours Integrated Umrah Management System combines Android, web, API and database technologies to support travel administration.
+
+The project demonstrates mobile application development, backend API integration, relational database design, authentication, source control and automated build testing.
+
+The implemented system provides a foundation for expanding and improving Umrah travel management services.
