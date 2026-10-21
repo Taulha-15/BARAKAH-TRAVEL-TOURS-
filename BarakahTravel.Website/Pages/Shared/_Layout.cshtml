@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BarakahTravel.Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BarakahTravel.Web.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg barakah-navbar">
+            <div class="container-fluid">
+
+                <a class="navbar-brand barakah-brand"
+                   asp-page="/Index">
+
+                    <img src="~/images/barakah-logo.png"
+                         alt="Barakah Travel Tours Logo"
+                         class="barakah-logo"
+                         asp-append-version="true" />
+
+                    <span>Barakah Travel Tours</span>
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavigation"
+                        aria-controls="mainNavigation"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="mainNavigation">
+
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Index">
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/About">About Us</a>
+
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Packages">Umrah Packages</a>
+                          
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/HowItWorks">How It Works</a>
+                        </li>
+
+                        <li class="nav-item">
+                           <a class="nav-link" asp-page="/Contact">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="nav-actions">
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a class="nav-link"
+                               asp-page="/CustomerDashboard">
+                                My Portal
+                            </a>
+
+                            <form method="post"
+                                  asp-page="/Logout"
+                                  class="nav-logout-form">
+
+                                <button type="submit"
+                                        class="nav-link nav-logout-button">
+                                    Logout
+                                </button>
+
+                            </form>
+                        }
+                        else
+                        {
+                            <a class="nav-link"
+                               asp-page="/Register">
+                                Register
+                            </a>
+
+                            <a class="nav-link"
+                               asp-page="/Login">
+                                Login
+                            </a>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+        <main role="main">
+            @RenderBody()
+        </main>
+
+  
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

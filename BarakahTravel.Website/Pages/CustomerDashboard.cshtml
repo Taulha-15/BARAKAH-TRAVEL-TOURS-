@@ -1,0 +1,134 @@
+﻿@page
+@model BarakahTravel.Web.Pages.CustomerDashboardModel
+
+@{
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<section class="dashboard-section">
+
+    <div class="dashboard-container">
+
+        <!-- WELCOME HEADER -->
+        <div class="dashboard-header">
+
+            <span class="dashboard-label">
+                BARAKAH TRAVEL TOURS
+            </span>
+
+            <h1>
+                Welcome, @User.Identity?.Name!
+            </h1>
+
+            <h2 class="dashboard-subtitle">
+                My Umrah Portal
+            </h2>
+
+            <p>
+                Welcome to your personal Umrah journey.
+                Manage your details, choose your package
+                and track your application in one place.
+            </p>
+
+        </div>
+
+        <!-- DASHBOARD CARDS -->
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-card-icon">👤</div>
+
+                <h2>My Personal Details</h2>
+
+                <p>
+                    Complete and update your personal,
+                    identification and passport information.
+                </p>
+
+                <a asp-page="/PersonalDetails" class="btn btn-success">
+                    View My Personal Details
+                </a>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-card-icon">🕋</div>
+
+                <h2>Choose Umrah Package</h2>
+
+                <p>
+                    Browse available Umrah packages
+                    and select the journey that suits you.
+                </p>
+
+                <a asp-page="/Packages"
+                   class="btn btn-success">
+                    Choose Umrah Package
+                </a>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-card-icon">📋</div>
+
+                <h2>My Application</h2>
+
+                <p>
+                    Submit your Umrah application
+                    and follow its progress.
+                </p>
+
+
+
+                <a asp-page="/MyApplications"
+                   class="btn btn-success">
+                    View My Application
+                </a>
+
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-card-icon">📁</div>
+
+                <h2>My Documents</h2>
+
+                <p>
+                    Upload the required documents
+                    for your Umrah travel application.
+                </p>
+
+
+                <a asp-page="/MyDocuments" class="btn btn-success">
+                    My Documents
+                </a>
+
+
+            </div>
+
+        </div>
+
+        <!-- SUPPORT SECTION -->
+        <div class="dashboard-support">
+
+            <h2>Need Assistance?</h2>
+
+            <p>
+                Our Barakah Travel Tours team is here
+                to guide you throughout your journey.
+            </p>
+
+            <a asp-page="/Contact"
+               class="dashboard-contact-button">
+                Contact Our Team
+            </a>
+
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,1851 @@
+
+/* ========================================
+   BARAKAH TRAVEL TOURS
+   WEBSITE DESIGN SYSTEM
+======================================== */
+
+:root {
+    --green: #064D35;
+    --green-dark: #033A2A;
+    --gold: #D5AD49;
+    --cream: #F7F8F3;
+    --text: #263B32;
+    --muted: #65746B;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--text);
+    background: #ffffff;
+}
+
+main {
+    width: 100%;
+}
+
+a {
+    transition: 0.2s ease;
+}
+
+/* ========================================
+   NAVIGATION
+======================================== */
+
+.barakah-navbar {
+    background: #ffffff;
+    border-bottom: 2px solid var(--gold);
+    padding: 10px 5%;
+}
+
+.barakah-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--green) !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+
+.barakah-logo {
+    width: 68px;
+    height: 68px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.barakah-navbar .nav-link {
+    color: var(--green);
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 10px 12px;
+}
+
+.barakah-navbar a.nav-link:hover {
+    color: #A17C28;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+}
+
+.nav-coming-soon {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.barakah-navbar .navbar-toggler {
+    border: 1px solid var(--gold);
+}
+
+
+/* Larger Barakah Travel Tours business name */
+
+.barakah-brand {
+    font-size: 1.65rem;
+    font-weight: 750;
+    color: #064D35 !important;
+    letter-spacing: 0.2px;
+}
+
+@media (max-width: 768px) {
+    .barakah-brand {
+        font-size: 1.15rem;
+    }
+}
+
+
+/* ========================================
+   HERO SECTION
+======================================== */
+
+.home-hero {
+    position: relative;
+    min-height: 680px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 7%;
+    overflow: hidden;
+    background-image: url('/images/barakah-madinah-hero.jpg');
+    background-size: cover;
+    background-position: center 43%;
+    background-repeat: no-repeat;
+}
+
+.home-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( 90deg, rgba(4, 35, 27, 0.82), rgba(4, 35, 27, 0.62), rgba(4, 35, 27, 0.42) );
+}
+
+.home-hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1100px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.home-eyebrow {
+    display: block;
+    color: #F0CE7C;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+}
+
+.home-hero h1 {
+    color: #ffffff;
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
+    font-weight: 750;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin: 0 auto 28px;
+    max-width: 1000px;
+}
+
+    .home-hero h1 span {
+        display: block;
+        color: #F0CE7C;
+    }
+
+.home-hero p {
+    color: #ffffff;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    max-width: 690px;
+    margin: 0 auto;
+}
+
+.home-hero-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 38px;
+}
+
+.home-btn-gold,
+.home-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 14px 26px;
+    border-radius: 7px;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.home-btn-gold {
+    background: var(--gold);
+    color: var(--green-dark);
+}
+
+    .home-btn-gold:hover {
+        background: #EBC86D;
+        color: var(--green-dark);
+    }
+
+.home-btn-outline {
+    border: 1.5px solid #ffffff;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+    .home-btn-outline:hover {
+        background: #ffffff;
+        color: var(--green);
+    }
+
+/* ========================================
+   WELCOME SECTION
+======================================== */
+
+.home-welcome {
+    background: #ffffff;
+    padding: 110px 24px 95px;
+    text-align: center;
+}
+
+.home-welcome-inner {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.home-section-label {
+    display: block;
+    color: #9B792E;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.home-welcome h2 {
+    color: var(--green);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    line-height: 1.25;
+    font-weight: 650;
+    margin: 22px 0;
+}
+
+.home-welcome p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    line-height: 1.9;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   WHY CHOOSE BARAKAH
+======================================== */
+
+.home-why {
+    background: #ffffff;
+    padding: 55px 7% 115px;
+}
+
+.home-why-inner {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    align-items: center;
+    gap: 65px;
+    max-width: 1350px;
+    margin: 0 auto;
+}
+
+.home-why-visual {
+    min-height: 440px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 45px;
+    background: var(--cream);
+    border-radius: 24px;
+}
+
+.home-why-visual-content {
+    text-align: center;
+}
+
+.home-why-visual img {
+    width: min(100%, 245px);
+    height: auto;
+    display: block;
+    margin: 0 auto 24px;
+}
+
+.home-why-visual-content span {
+    display: block;
+    color: var(--green);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.home-why-content h2 {
+    color: var(--green);
+    font-size: clamp(2rem, 3.4vw, 3.2rem);
+    line-height: 1.2;
+    font-weight: 650;
+    margin: 20px 0 25px;
+}
+
+.home-why-description {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.9;
+    margin-bottom: 30px;
+}
+
+.home-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+}
+
+.home-benefit-card {
+    background: var(--cream);
+    padding: 24px 18px;
+    border-radius: 15px;
+    border-top: 3px solid var(--gold);
+}
+
+.home-benefit-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E5EDDF;
+    color: var(--green);
+    border-radius: 50%;
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+}
+
+.home-benefit-card h3 {
+    color: var(--green);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.home-benefit-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 0;
+}
+
+.home-story-link {
+    display: inline-block;
+    color: var(--green);
+    font-weight: 700;
+    text-decoration: none;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--gold);
+}
+
+    .home-story-link:hover {
+        color: #9B792E;
+    }
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 991px) {
+    .home-why-inner {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .home-why-visual {
+        min-height: 330px;
+    }
+
+    .nav-actions {
+        margin-left: 0;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-hero {
+        min-height: 650px;
+        padding: 85px 22px;
+        background-position: center;
+    }
+
+    .home-hero-overlay {
+        background: rgba(4, 35, 27, 0.68);
+    }
+
+    .home-hero h1 {
+        font-size: clamp(2.5rem, 9vw, 4rem);
+    }
+
+    .home-hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .home-welcome {
+        padding: 75px 22px;
+    }
+
+    .home-why {
+        padding: 35px 22px 85px;
+    }
+
+    .home-benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .barakah-logo {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* ========================================
+   HOMEPAGE IMPROVEMENTS
+======================================== */
+
+/* Remove spacing around the page */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Make the main content full width */
+main {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Stretch the Madinah photograph edge to edge */
+.home-hero {
+    width: 100%;
+    max-width: none;
+    min-height: 720px;
+    margin: 0;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* Larger welcome label */
+.home-eyebrow {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+/* Larger section labels */
+.home-section-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .home-hero {
+        min-height: 650px;
+    }
+
+    .home-eyebrow {
+        font-size: 0.95rem;
+        letter-spacing: 2px;
+    }
+
+    .home-section-label {
+        font-size: 0.95rem;
+        letter-spacing: 2px;
+    }
+}
+
+/* STEP 21.5.2 - FULL WIDTH HOMEPAGE */
+
+html,
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+main,
+main[role="main"] {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+.home-hero {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border: none;
+}
+
+/* Remove unwanted link underlines */
+.home-btn-gold,
+.home-btn-outline,
+.home-btn-gold:hover,
+.home-btn-outline:hover {
+    text-decoration: none !important;
+}
+
+
+/* ========================================
+   BARAKAH - ABOUT US PAGE
+   COMPLETE MODERN DESIGN
+======================================== */
+
+/* PHOTO HERO */
+
+.about-hero {
+    position: relative;
+    width: 100%;
+    min-height: 680px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 24px;
+    text-align: center;
+    color: #ffffff;
+    background-image: linear-gradient( rgba(3, 42, 30, 0.48), rgba(3, 42, 30, 0.66) ), url('/images/barakah-about-background.jpg');
+    background-size: cover;
+    background-position: center 45%;
+    background-repeat: no-repeat;
+}
+
+.about-hero-content {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.about-eyebrow {
+    display: block;
+    color: #F0CE7C;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 28px;
+}
+
+.about-hero h1 {
+    color: #ffffff;
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
+    font-weight: 750;
+    line-height: 1.15;
+    margin: 0 0 28px;
+    text-shadow: 0 3px 14px rgba(0,0,0,0.35);
+}
+
+.about-hero p {
+    color: #ffffff;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    max-width: 680px;
+    margin: 0 auto;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* SHARED SECTION LABELS */
+
+.about-label {
+    display: block;
+    color: #9B792E;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    margin-bottom: 20px;
+}
+
+/* INTRODUCTION */
+
+.about-intro {
+    padding: 115px 24px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.about-intro-inner {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.about-intro h2 {
+    color: #064D35;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 650;
+    line-height: 1.25;
+    margin-bottom: 30px;
+}
+
+.about-intro p {
+    color: #65746B;
+    font-size: 1.15rem;
+    line-height: 1.95;
+    margin: 0;
+}
+
+/* INSPIRATIONAL BEGINNING */
+
+.about-story {
+    background: #F7F8F3;
+    padding: 120px 7%;
+}
+
+.about-story-inner {
+    max-width: 1250px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 90px;
+    align-items: start;
+}
+
+.about-story-heading h2 {
+    color: #064D35;
+    font-size: clamp(2.3rem, 3.7vw, 3.5rem);
+    font-weight: 650;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.about-story-text {
+    padding-left: 32px;
+    border-left: 3px solid #D5AD49;
+}
+
+    .about-story-text p {
+        color: #53665B;
+        font-size: 1.1rem;
+        line-height: 1.95;
+        margin: 0 0 24px;
+    }
+
+        .about-story-text p:last-child {
+            margin-bottom: 0;
+        }
+
+    .about-story-text strong {
+        color: #064D35;
+    }
+
+/* VISION */
+
+.about-vision {
+    background: #ffffff;
+    padding: 130px 24px;
+    text-align: center;
+}
+
+.about-vision-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-vision h2 {
+    color: #064D35;
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
+    font-weight: 650;
+    line-height: 1.2;
+    margin-bottom: 32px;
+}
+
+.about-vision p {
+    color: #65746B;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.about-vision-line {
+    width: 80px;
+    height: 3px;
+    background: #D5AD49;
+    margin: 45px auto 25px;
+}
+
+.about-vision .about-vision-quote {
+    color: #9B792E;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* CALL TO ACTION */
+
+.about-cta {
+    background: #064D35;
+    color: #ffffff;
+    padding: 100px 24px;
+    text-align: center;
+}
+
+.about-cta-inner {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.about-cta h2 {
+    color: #ffffff;
+    font-size: clamp(2.3rem, 4vw, 3.5rem);
+    font-weight: 650;
+    margin-bottom: 25px;
+}
+
+.about-cta p {
+    color: #E1ECE5;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+.about-cta-button {
+    display: inline-block;
+    background: #D5AD49;
+    color: #064D35;
+    padding: 16px 30px;
+    border-radius: 7px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+    .about-cta-button:hover {
+        background: #EBC86D;
+        color: #064D35;
+        text-decoration: none;
+    }
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 768px) {
+
+    .about-hero {
+        min-height: 570px;
+        padding: 90px 22px;
+        background-position: center center;
+
+    }
+
+    .about-eyebrow {
+        font-size: 0.95rem;
+        letter-spacing: 2px;
+    }
+
+    .about-hero p {
+        font-size: 1.05rem;
+    }
+
+    .about-intro {
+        padding: 80px 22px;
+    }
+
+    .about-story {
+        padding: 80px 22px;
+    }
+
+    .about-story-inner {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .about-story-text {
+        padding-left: 22px;
+    }
+
+    .about-vision {
+        padding: 90px 22px;
+    }
+
+    .about-cta {
+        padding: 80px 22px;
+    }
+}
+
+/* ========================================
+    UMRAH PACKAGES PAGE
+======================================== */
+
+
+/* UMRAH PACKAGES - PHOTO BANNER */
+
+.packages-hero {
+    position: relative;
+    width: 100%;
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 24px;
+    text-align: center;
+    color: #ffffff;
+    background-image: linear-gradient( rgba(0, 20, 15, 0.35), rgba(0, 20, 15, 0.65) ), url('/images/barakah-packages-background.jpg');
+    background-size: cover;
+    background-position: center 52%;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+    .packages-hero {
+        min-height: 520px;
+        padding: 80px 22px;
+        background-position: center center;
+    }
+}
+
+.packages-hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.packages-eyebrow {
+    display: block;
+    color: #F0CE7C;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+}
+
+.packages-hero h1 {
+    color: #ffffff;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 25px;
+}
+
+.packages-hero p {
+    color: #E9F0EB;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.packages-section {
+    background: #ffffff;
+    padding: 100px 24px;
+}
+
+.packages-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.packages-heading {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.packages-label {
+    display: block;
+    color: #9B792E;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.packages-heading h2 {
+    color: #064D35;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    margin-bottom: 20px;
+}
+
+.packages-heading p {
+    color: #65746B;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.packages-empty {
+    background: #F7F8F3;
+    border-top: 3px solid #D5AD49;
+    border-radius: 12px;
+    padding: 55px 30px;
+    text-align: center;
+}
+
+    .packages-empty h3 {
+        color: #064D35;
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+
+    .packages-empty p {
+        color: #65746B;
+        line-height: 1.8;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+@media (max-width: 768px) {
+    .packages-hero {
+        padding: 80px 22px;
+    }
+
+    .packages-eyebrow {
+        font-size: 0.95rem;
+        letter-spacing: 2px;
+    }
+
+    .packages-section {
+        padding: 70px 20px;
+    }
+
+    .packages-empty {
+        padding: 40px 22px;
+    }
+}
+
+
+/* STEP 21.8.4 - PACKAGE CARDS */
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.package-card {
+    background: #ffffff;
+    border: 1px solid #E6EAE5;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .package-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+.package-card-content {
+    padding: 30px;
+}
+
+.package-card-label {
+    display: block;
+    color: #A17B28;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.package-card h3 {
+    color: #064D35;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.package-card-content > p {
+    color: #65746B;
+    min-height: 52px;
+    line-height: 1.7;
+}
+
+.package-card-details {
+    border-top: 1px solid #E6EAE5;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+    .package-card-details p {
+        color: #53665B;
+        margin-bottom: 12px;
+    }
+
+.package-card-footer {
+    border-top: 1px solid #E6EAE5;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.package-price {
+    color: #064D35;
+    font-size: 1.8rem;
+    font-weight: 750;
+}
+
+@media (max-width: 992px) {
+    .packages-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .packages-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .package-card-content {
+        padding: 24px;
+    }
+}
+
+/* ========================================
+    HOW IT WORKS PAGE
+======================================== */
+
+.how-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.how-hero {
+    background: linear-gradient(135deg, #064D35, #286D55);
+    color: #ffffff;
+    text-align: center;
+    padding: 110px 24px;
+}
+
+.how-eyebrow {
+    display: block;
+    color: #D5AD49;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    margin-bottom: 20px;
+}
+
+.how-hero .how-eyebrow {
+    color: #F0CE7C;
+}
+
+.how-hero h1 {
+    color: #ffffff;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 700;
+    margin-bottom: 22px;
+}
+
+.how-hero p {
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #E9F0EB;
+}
+
+.how-process {
+    padding: 110px 24px;
+    background: #ffffff;
+}
+
+.how-heading {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 60px;
+}
+
+    .how-heading h2 {
+        color: #064D35;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        margin-bottom: 20px;
+    }
+
+    .how-heading p {
+        color: #65746B;
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+.how-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.how-card {
+    background: #F7F8F3;
+    border-top: 3px solid #D5AD49;
+    border-radius: 14px;
+    padding: 38px;
+}
+
+.how-number {
+    display: block;
+    color: #B58C31;
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.how-card h3 {
+    color: #064D35;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.how-card p {
+    color: #65746B;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.how-cta {
+    background: #064D35;
+    color: #ffffff;
+    text-align: center;
+    padding: 95px 24px;
+}
+
+    .how-cta h2 {
+        color: #ffffff;
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 22px;
+    }
+
+    .how-cta p {
+        color: #E9F0EB;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        max-width: 650px;
+        margin: 0 auto 30px;
+    }
+
+.how-button {
+    display: inline-block;
+    background: #D5AD49;
+    color: #064D35;
+    padding: 16px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+    .how-button:hover {
+        background: #EBC86D;
+        color: #064D35;
+        text-decoration: none;
+    }
+
+@media (max-width: 768px) {
+    .how-hero {
+        padding: 80px 22px;
+    }
+
+    .how-process {
+        padding: 75px 20px;
+    }
+
+    .how-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .how-card {
+        padding: 28px;
+    }
+}
+
+/* ========================================
+   CONTACT PAGE
+======================================== */
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-hero {
+    background: linear-gradient(135deg, #064D35, #286D55);
+    color: white;
+    text-align: center;
+    padding: 110px 24px;
+}
+
+.contact-label {
+    display: block;
+    color: #D5AD49;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.contact-hero .contact-label {
+    color: #F0CE7C;
+}
+
+.contact-hero h1 {
+    color: white;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.contact-hero p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #E9F0EB;
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+.contact-section {
+    background: #ffffff;
+    padding: 110px 24px;
+}
+
+.contact-heading {
+    max-width: 780px;
+    margin: 0 auto 60px;
+    text-align: center;
+}
+
+    .contact-heading h2 {
+        color: #064D35;
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 20px;
+    }
+
+    .contact-heading p {
+        color: #65746B;
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.contact-card {
+    background: #F7F8F3;
+    border-top: 3px solid #D5AD49;
+    border-radius: 14px;
+    padding: 38px 30px;
+    text-align: center;
+}
+
+.contact-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 24px;
+    background: #E9EEDC;
+    color: #064D35;
+    border-radius: 50%;
+    font-size: 1.8rem;
+}
+
+.contact-card h3 {
+    color: #064D35;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.contact-card p {
+    color: #65746B;
+    line-height: 1.8;
+}
+
+.contact-card-note {
+    display: block;
+    color: #8A928B;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+.contact-text-link {
+    display: inline-block;
+    margin-top: 16px;
+    color: #064D35;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+    .contact-text-link:hover {
+        color: #A17B28;
+        text-decoration: underline;
+    }
+
+.contact-bottom {
+    background: #064D35;
+    color: #ffffff;
+    padding: 95px 24px;
+    text-align: center;
+}
+
+    .contact-bottom h2 {
+        color: #ffffff;
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 20px;
+    }
+
+    .contact-bottom p {
+        max-width: 650px;
+        margin: 0 auto 30px;
+        color: #E9F0EB;
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+.contact-button {
+    display: inline-block;
+    background: #D5AD49;
+    color: #064D35;
+    padding: 16px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+    .contact-button:hover {
+        background: #EBC86D;
+        color: #064D35;
+        text-decoration: none;
+    }
+
+@media (max-width: 900px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-section {
+        padding: 75px 20px;
+    }
+
+    .contact-hero {
+        padding: 80px 20px;
+    }
+}
+
+/* ========================================
+   CONTACT BUTTONS
+======================================== */
+
+.contact-detail {
+    color: #064D35 !important;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.contact-email {
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+}
+
+.contact-whatsapp-button,
+.contact-email-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 13px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.contact-whatsapp-button {
+    background: #16834B;
+    color: #ffffff;
+}
+
+    .contact-whatsapp-button:hover {
+        background: #11683B;
+        color: #ffffff;
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+.contact-email-button {
+    background: #D5AD49;
+    color: #064D35;
+}
+
+    .contact-email-button:hover {
+        background: #EBC86D;
+        color: #064D35;
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+
+/* =========================================
+CONTACT LAYOUT FIX
+========================================= */
+
+/* Make the contact section use the full available width */
+.contact-section {
+    width: 100%;
+    padding: 90px 24px;
+    box-sizing: border-box;
+}
+
+    /* Override narrow container or grid styles */
+    .contact-section .contact-container {
+        width: 100%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Three equal-width contact cards */
+    .contact-section .contact-grid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+        align-items: stretch;
+    }
+
+    /* Keep content neatly inside each card */
+    .contact-section .contact-card {
+        width: 100%;
+        min-width: 0;
+        padding: 36px 28px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+        /* Names and headings */
+        .contact-section .contact-card h3 {
+            font-size: 1.5rem;
+            line-height: 1.35;
+            margin-bottom: 16px;
+        }
+
+        /* Descriptions */
+        .contact-section .contact-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+    /* Phone numbers and email */
+    .contact-section .contact-detail {
+        font-size: 1.1rem;
+        overflow-wrap: anywhere;
+    }
+
+    /* WhatsApp and email buttons */
+    .contact-section .contact-whatsapp-button,
+    .contact-section .contact-email-button {
+        display: inline-flex;
+        width: auto;
+        max-width: 100%;
+        padding: 14px 20px;
+        text-align: center;
+        white-space: normal;
+    }
+
+/* Tablet */
+@media (max-width: 950px) {
+    .contact-section .contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+    .contact-section .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-section {
+        padding: 65px 18px;
+    }
+
+        .contact-section .contact-card {
+            padding: 30px 22px;
+        }
+}
+
+/* ========================================
+    CUSTOMER REGISTRATION
+======================================== */
+
+.register-section {
+    background: #F7F8F3;
+    padding: 90px 20px 110px;
+}
+
+.register-container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.register-intro {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.register-label {
+    display: block;
+    color: #A17B28;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.register-intro h1 {
+    color: #064D35;
+    font-size: clamp(2.4rem, 4vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.register-intro p {
+    color: #65746B;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.register-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 45px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+}
+
+.register-notice {
+    background: #F5F5E9;
+    border-left: 4px solid #D5AD49;
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin-bottom: 35px;
+}
+
+    .register-notice strong {
+        display: block;
+        color: #064D35;
+        font-size: 1.05rem;
+        margin-bottom: 8px;
+    }
+
+    .register-notice p {
+        color: #65746B;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+.register-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.register-field {
+    margin-bottom: 24px;
+    min-width: 0;
+}
+
+    .register-field label {
+        display: block;
+        color: #064D35;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .register-field input {
+        display: block;
+        width: 100%;
+        min-height: 52px;
+        padding: 14px 16px;
+        border: 1px solid #D7DED8;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #263D31;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+        .register-field input:focus {
+            outline: 2px solid #D5AD49;
+            outline-offset: 1px;
+            border-color: #064D35;
+        }
+
+.register-password-hint {
+    color: #65746B;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+.register-button {
+    display: block;
+    width: 100%;
+    background: #D5AD49;
+    color: #064D35;
+    border: none;
+    border-radius: 8px;
+    padding: 17px 24px;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+    .register-button:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+    .register-button:not(:disabled):hover {
+        background: #EBC86D;
+    }
+
+.register-login {
+    margin: 25px 0 0;
+    text-align: center;
+    color: #65746B;
+}
+
+    .register-login a {
+        color: #064D35;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+        .register-login a:hover {
+            text-decoration: underline;
+        }
+
+@media (max-width: 650px) {
+    .register-section {
+        padding: 60px 16px;
+    }
+
+    .register-card {
+        padding: 26px 20px;
+    }
+
+    .register-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* REGISTRATION FORM MESSAGES */
+
+.register-validation {
+    color: #A12626;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.register-field-error {
+    display: block;
+    color: #A12626;
+    font-size: 0.9rem;
+    margin-top: 6px;
+}
+
+.register-success {
+    background: #EAF4EC;
+    color: #064D35;
+    border-left: 4px solid #16834B;
+    padding: 18px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+/* =========================================
+   CUSTOMER DASHBOARD
+========================================= */
+
+.dashboard-section {
+    background: #F7F8F3;
+    padding: 85px 20px 110px;
+    min-height: 75vh;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.dashboard-label {
+    display: block;
+    color: #A17B28;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.dashboard-header h1 {
+    color: #064D35;
+    font-size: clamp(2.3rem, 4vw, 3.5rem);
+    margin-bottom: 18px;
+}
+
+.dashboard-header p {
+    color: #65746B;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.dashboard-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 38px 34px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #E8EDE8;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.09);
+    }
+
+.dashboard-card-icon {
+    font-size: 2.3rem;
+    margin-bottom: 20px;
+}
+
+.dashboard-card h2 {
+    color: #064D35;
+    font-size: 1.45rem;
+    margin-bottom: 14px;
+}
+
+.dashboard-card p {
+    color: #65746B;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.dashboard-card-status {
+    display: inline-block;
+    color: #9B782C;
+    background: #F9F2DE;
+    padding: 9px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.dashboard-support {
+    margin-top: 55px;
+    padding: 45px 25px;
+    background: #064D35;
+    border-radius: 16px;
+    text-align: center;
+}
+
+    .dashboard-support h2 {
+        color: #FFFFFF;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .dashboard-support p {
+        color: #E0EAE3;
+        line-height: 1.7;
+        margin-bottom: 25px;
+    }
+
+.dashboard-contact-button {
+    display: inline-block;
+    background: #D5AD49;
+    color: #064D35;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+    .dashboard-contact-button:hover {
+        background: #EBC86D;
+        color: #064D35;
+    }
+
+@media (max-width: 700px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card {
+        padding: 30px 25px;
+    }
+
+    .dashboard-section {
+        padding: 60px 16px;
+    }
+}
+/* CUSTOMER LOGOUT NAVIGATION */
+
+.nav-logout-form {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+}
+
+.nav-logout-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    color: #064D35;
+    padding: 0;
+}
+
+    .nav-logout-button:hover {
+        color: #A17B28;
+    }
+.dashboard-subtitle {
+    color: #A17B28;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36915.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarakahTravel.API", "BarakahTravel.API\BarakahTravel.API.csproj", "{4A172EE9-B0D8-499B-B0C2-1ECCC9E4BF53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarakahTravel.Web", "BarakahTravel.Web\BarakahTravel.Web.csproj", "{467786ED-1A9E-4BA4-9D76-2D9D8D05F2B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A172EE9-B0D8-499B-B0C2-1ECCC9E4BF53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A172EE9-B0D8-499B-B0C2-1ECCC9E4BF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A172EE9-B0D8-499B-B0C2-1ECCC9E4BF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A172EE9-B0D8-499B-B0C2-1ECCC9E4BF53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{467786ED-1A9E-4BA4-9D76-2D9D8D05F2B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{467786ED-1A9E-4BA4-9D76-2D9D8D05F2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{467786ED-1A9E-4BA4-9D76-2D9D8D05F2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{467786ED-1A9E-4BA4-9D76-2D9D8D05F2B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCE05C28-1F9A-4E6E-868C-CF54E4F31193}
+	EndGlobalSection
+EndGlobal

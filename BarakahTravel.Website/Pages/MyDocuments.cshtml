@@ -1,0 +1,147 @@
+﻿@page
+@model BarakahTravel.Web.Pages.MyDocumentsModel
+
+@{
+    ViewData["Title"] = "My Documents";
+}
+
+<section class="container py-5">
+
+    <h1 class="mb-3">My Documents</h1>
+
+    <p class="text-muted mb-4">
+        Manage the documents required for your Umrah journey.
+        Select your application to get started.
+    </p>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorMessage
+        </div>
+    }
+    else if (Model.Applications.Count == 0)
+    {
+        <div class="alert alert-info">
+            You do not have any Umrah applications yet.
+            Please choose a package and submit an application first.
+        </div>
+
+        <a asp-page="/Packages"
+           class="btn btn-success">
+            Browse Umrah Packages
+        </a>
+    }
+    else
+    {
+        <div class="card shadow-sm p-4">
+
+            <h2 class="h5 mb-3">
+                Select Your Umrah Application
+            </h2>
+
+
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="alert alert-success" role="alert">
+                    @Model.SuccessMessage
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @Model.ErrorMessage
+                </div>
+            }
+
+
+            <form method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label for="applicationId"
+                           class="form-label">
+                        Umrah Application
+                    </label>
+
+                    <select id="applicationId"
+                            name="applicationId"
+                            class="form-select">
+
+                        <option value="">
+                            -- Select an application --
+                        </option>
+
+                        @foreach (var application in Model.Applications)
+                        {
+                            <option value="@application.ApplicationId">
+                                @application.PackageName
+                                (Application #@application.ApplicationId -
+                                @application.ApplicationStatus)
+                            </option>
+                        }
+
+                    </select>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="documentType" class="form-label">
+                        Document Type
+                    </label>
+
+                    <select id="documentType"
+                            name="documentType"
+                            class="form-select"
+                            required>
+
+                        <option value="">-- Select document type --</option>
+                        <option value="Passport Copy">Passport Copy</option>
+                        <option value="ID Document">ID Document</option>
+                        <option value="Other">Other Supporting Document</option>
+
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="file" class="form-label">
+                        Choose Document
+                    </label>
+
+                    <input type="file"
+                           id="file"
+                           name="file"
+                           class="form-control"
+                           accept=".pdf,.jpg,.jpeg,.png"
+                           required />
+
+                    <small class="text-muted">
+                        Accepted formats: PDF, JPG, JPEG and PNG.
+                        Maximum file size: 5 MB.
+                    </small>
+                </div>
+
+
+                <div class="alert alert-info mt-3">
+                    You will be able to upload your passport
+                    copy and other required documents here.
+                </div>
+
+
+                <button type="submit"
+                        class="btn btn-success">
+                    Upload Document
+                </button>
+
+            </form>
+
+        </div>
+    }
+
+    <a asp-page="/CustomerDashboard"
+       class="btn btn-outline-success mt-4">
+        Back to Customer Portal
+    </a>
+
+</section>

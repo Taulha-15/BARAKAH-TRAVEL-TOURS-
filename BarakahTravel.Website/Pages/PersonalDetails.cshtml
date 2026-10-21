@@ -1,0 +1,242 @@
+﻿@page
+@model BarakahTravel.Web.Pages.PersonalDetailsModel
+
+@{
+    ViewData["Title"] = "My Personal Details";
+}
+
+<section class="container py-5">
+
+    <h1>My Personal Details</h1>
+
+    <p class="text-muted">
+        View and update your personal, identification
+        and passport information for your Umrah journey.
+    </p>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorMessage
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="status">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <div class="card shadow-sm p-4 mt-4">
+
+        <h2 class="h4 mb-4">Customer Information</h2>
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <strong>First Name</strong>
+                <p>@Model.Customer?.FirstName</p>
+            </div>
+
+            <div class="col-md-6">
+                <strong>Surname</strong>
+                <p>@Model.Customer?.Surname</p>
+            </div>
+
+            <div class="col-md-6">
+                <strong>Email</strong>
+                <p>@Model.Customer?.Email</p>
+            </div>
+
+            <div class="col-md-6">
+                <strong>Phone</strong>
+                <p>@Model.Customer?.Phone</p>
+            </div>
+
+            <div class="col-md-6">
+                <strong>ID Number</strong>
+                <p>
+                    @(Model.Customer?.Idnumber ?? "Not provided")
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <strong>Passport Number</strong>
+                <p>
+                    @(Model.Customer?.PassportNumber ?? "Not provided")
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <strong>Date of Birth</strong>
+                <p>
+                    @(Model.Customer?.DateOfBirth?.ToString("yyyy-MM-dd")
+                                        ?? "Not provided")
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <strong>Gender</strong>
+                <p>
+                    @(Model.Customer?.Gender ?? "Not provided")
+                </p>
+            </div>
+
+            <div class="col-12">
+                <strong>Address</strong>
+                <p>
+                    @(Model.Customer?.Address ?? "Not provided")
+                </p>
+            </div>
+
+        </div>
+
+        <hr class="my-4" />
+
+        <h2 class="h4 mb-3">Edit Personal Details</h2>
+
+        <p class="text-muted">
+            Update your information below and click
+            Save Changes.
+        </p>
+
+        <form method="post" asp-page-handler="Save">
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label asp-for="EditDetails.FirstName"
+                           class="form-label">
+                        First Name
+                    </label>
+
+                    <input asp-for="EditDetails.FirstName"
+                           class="form-control"
+                           maxlength="50"
+                           required />
+
+                    <span asp-validation-for="EditDetails.FirstName"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EditDetails.Surname"
+                           class="form-label">
+                        Surname
+                    </label>
+
+                    <input asp-for="EditDetails.Surname"
+                           class="form-control"
+                           maxlength="50"
+                           required />
+
+                    <span asp-validation-for="EditDetails.Surname"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EditDetails.Phone"
+                           class="form-label">
+                        Phone Number
+                    </label>
+
+                    <input asp-for="EditDetails.Phone"
+                           class="form-control"
+                           maxlength="30"
+                           required />
+
+                    <span asp-validation-for="EditDetails.Phone"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EditDetails.Idnumber"
+                           class="form-label">
+                        ID Number
+                    </label>
+
+                    <input asp-for="EditDetails.Idnumber"
+                           class="form-control"
+                           maxlength="30" />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EditDetails.PassportNumber"
+                           class="form-label">
+                        Passport Number
+                    </label>
+
+                    <input asp-for="EditDetails.PassportNumber"
+                           class="form-control"
+                           maxlength="30" />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EditDetails.DateOfBirth"
+                           class="form-label">
+                        Date of Birth
+                    </label>
+
+                    <input asp-for="EditDetails.DateOfBirth"
+                           type="date"
+                           class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EditDetails.Gender"
+                           class="form-label">
+                        Gender
+                    </label>
+
+                    <select asp-for="EditDetails.Gender"
+                            class="form-select">
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="EditDetails.Address"
+                           class="form-label">
+                        Residential Address
+                    </label>
+
+                    <textarea asp-for="EditDetails.Address"
+                              class="form-control"
+                              rows="3"
+                              maxlength="255"></textarea>
+                </div>
+
+            </div>
+
+            <div asp-validation-summary="All"
+                 class="text-danger mt-3"></div>
+
+            <button type="submit"
+                    class="btn btn-success mt-4">
+                Save Changes
+            </button>
+
+        </form>
+
+        <hr class="my-4" />
+
+        <a asp-page="/CustomerDashboard"
+           class="btn btn-outline-success">
+            Back to My Portal
+        </a>
+
+    </div>
+
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

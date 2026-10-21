@@ -7,3 +7,16 @@ app/google-services.json
 **/*service-account*.json
 *.jks
 *.keystore
+
+# Visual Studio temporary files
+.vs/
+**/.vs/
+
+# .NET build output
+**/bin/
+**/obj/
+
+# Private application data
+**/PrivateUploads/
+**/appsettings.Development.json
+**/.env

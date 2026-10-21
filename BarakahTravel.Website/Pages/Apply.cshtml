@@ -1,0 +1,99 @@
+﻿@page
+@model BarakahTravel.Web.Pages.ApplyModel
+
+@{
+    ViewData["Title"] = "Apply for Umrah";
+}
+
+<section class="container py-5">
+
+    <h1>Apply for Umrah</h1>
+
+    <p class="text-muted">
+        Review your selected Umrah package before submitting
+        your application.
+    </p>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorMessage
+        </div>
+    }
+    else if (Model.SelectedPackage != null)
+    {
+        <div class="card shadow-sm p-4 mt-4">
+
+            <h2 class="h4 mb-4">
+                @Model.SelectedPackage.PackageName
+            </h2>
+
+            <p>@Model.SelectedPackage.Description</p>
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <strong>Duration</strong>
+                    <p>@Model.SelectedPackage.DurationDays days</p>
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Package Price</strong>
+                    <p>
+                        @Model.SelectedPackage.Price.ToString(
+                        "C0",
+                                        new System.Globalization.CultureInfo("en-ZA"))
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <strong>Departure Date</strong>
+                <p>
+                    @Model.SelectedPackage.DepartureDate.ToString(
+                                        "dd MMM yyyy")
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <strong>Return Date</strong>
+                <p>
+                    @Model.SelectedPackage.ReturnDate.ToString(
+                                        "dd MMM yyyy")
+                </p>
+            </div>
+
+        </div>
+
+        <div class="alert alert-info mt-3">
+            Please review your package information carefully.
+            Your application will be submitted for review
+            once you confirm it.
+        </div>
+
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <form method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   name="packageId"
+                   value="@Model.SelectedPackage.PackageId" />
+
+            <button type="submit"
+                    class="btn btn-success">
+                Confirm Application
+            </button>
+        </form>
+
+
+    </div>
+        }
+
+    <a asp-page="/Packages"
+       class="btn btn-outline-success mt-4">
+        Back to Umrah Packages
+    </a>
+
+</section>

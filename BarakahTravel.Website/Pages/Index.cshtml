@@ -1,0 +1,137 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- HERO SECTION -->
+<section class="home-hero">
+    <div class="home-hero-overlay"></div>
+
+    <div class="home-hero-content">
+        <span class="home-eyebrow">
+            WELCOME TO BARAKAH TRAVEL TOURS
+        </span>
+
+        <h1>
+            Your Journey of Faith
+            <span>Begins Here.</span>
+        </h1>
+
+        <p>
+            Discover meaningful Umrah travel experiences
+            with guidance and support throughout
+            your sacred journey.
+        </p>
+
+        <div class="home-hero-buttons">
+            <a asp-page="/Packages" class="home-btn-gold">
+                Explore Umrah Packages
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- WELCOME SECTION -->
+<section class="home-welcome">
+    <div class="home-welcome-inner">
+        <span class="home-section-label">
+            THE BARAKAH EXPERIENCE
+        </span>
+
+        <h2>
+            A Meaningful Journey,<br />
+            Thoughtfully Planned.
+        </h2>
+
+        <p>
+            From exploring Umrah packages to preparing
+            your travel application, Barakah Travel Tours
+            is here to help you begin your journey.
+        </p>
+    </div>
+</section>
+
+<!-- WHY CHOOSE BARAKAH -->
+<section class="home-why">
+    <div class="home-why-inner">
+
+        <div class="home-why-visual">
+            <div class="home-why-visual-content">
+                <img src="~/images/barakah-logo.png"
+                     asp-append-version="true"
+                     alt="Barakah Travel Tours logo" />
+
+                <span>TOWARDS ENLIGHTENMENT</span>
+            </div>
+        </div>
+
+        <div class="home-why-content">
+            <span class="home-section-label">
+                WHY TRAVEL WITH US
+            </span>
+
+            <h2>Why Choose Barakah Travel?</h2>
+
+            <p class="home-why-description">
+                Every sacred journey deserves thoughtful
+                preparation. We aim to help pilgrims
+                experience a meaningful and well-organised
+                Umrah journey, with support from registration
+                through travel preparation.
+            </p>
+
+            <div class="home-benefits">
+                <article class="home-benefit-card">
+                    <div class="home-benefit-icon"
+                         aria-hidden="true">
+                        ✦
+                    </div>
+
+                    <h3>Personal Guidance</h3>
+
+                    <p>
+                        Support throughout your
+                        travel preparations.
+                    </p>
+                </article>
+
+                <article class="home-benefit-card">
+                    <div class="home-benefit-icon"
+                         aria-hidden="true">
+                        ✧
+                    </div>
+
+                    <h3>Umrah Packages</h3>
+
+                    <p>
+                        Explore available
+                        travel options.
+                    </p>
+                </article>
+
+                <article class="home-benefit-card">
+                    <div class="home-benefit-icon"
+                         aria-hidden="true">
+                        ✓
+                    </div>
+
+                    <h3>Online Convenience</h3>
+
+                    <p>
+                        Manage applications
+                        and documents online.
+                    </p>
+                </article>
+            </div>
+
+            <a asp-page="/About" class="home-story-link">
+                Learn More About Barakah
+                <span aria-hidden="true">→</span>
+            </a>
+        </div>
+
+    </div>
+</section>
+
