@@ -11,21 +11,7 @@ The purpose of this project is to develop an Umrah Travel Management System that
 The main objective of this project is to improve the way Barakah Travel and Tours manages its daily operations. By using a digital system, the business can organise customer details, manage available travel packages, keep track of bookings, and provide customers with a more convenient booking experience.
 
 The system also aims to reduce manual paperwork, improve the accuracy of information, and make it easier for the business to manage its services in one central location.
-# Barakah Travel Tours Website
-- login.html – staff/admin login prototype
-- index.html – main staff management system
-- style.css – redesigned styling
-- script.js – existing front-end navigation, forms, tables and demo interactions
 
-Main design choices:
-- Simple green and gold colour scheme related to the travel/Umrah theme
-- Clear sidebar navigation
-- Simple dashboard cards and tables
-- Basic forms and pop-up modals
-- Responsive layout for smaller screens
-- No external libraries or frameworks required
-  
-# Barakah Travel Tours App
 # Key Features
 
 Depending on the implemented functionality, the system may include the following features:
@@ -60,7 +46,7 @@ Programming Language: HTML and Kotlin
 
 Database:
 
-Development Environment:
+Development Environment: Android Studio
 
 Version Control: Git and GitHub
 
