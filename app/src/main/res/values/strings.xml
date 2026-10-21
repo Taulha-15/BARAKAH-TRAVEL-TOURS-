@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Barakah Staff</string>
+    <!-- Placeholder: Firebase Google Sign-In is NOT active yet. Replace via google-services.json during integration. -->
+    <string name="default_web_client_id">NOT_CONFIGURED_YET</string>
+</resources>
