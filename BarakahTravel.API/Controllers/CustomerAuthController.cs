@@ -1,5 +1,8 @@
 ﻿
 using BarakahTravel.API.Data;
+using FirebaseAdmin;
+using FirebaseAdmin.Auth;
+using Google.Apis.Auth.OAuth2;
 using BarakahTravel.API.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -97,6 +100,110 @@ public class CustomerAuthController : ControllerBase
             email = account.Email
         });
 
+    }
+
+    public class GoogleLoginRequest
+    {
+        public string IdToken { get; set; } = string.Empty;
+    }
+
+    // POST: api/CustomerAuth/google
+    // Single sign-on for customers: the website signs in with Google through Firebase,
+    // then sends the Firebase ID token here. The API verifies the token with Firebase Admin
+    // and links it to an existing customer account by (verified) email address.
+    [AllowAnonymous]
+    [HttpPost("google")]
+    public async Task<IActionResult> GoogleLogin(
+        [FromBody] GoogleLoginRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.IdToken))
+        {
+            return BadRequest(new
+            {
+                success = false,
+                message = "Google ID token is required."
+            });
+        }
+
+        try
+        {
+            // Same Firebase project and credentials the staff app uses.
+            if (FirebaseApp.DefaultInstance == null)
+            {
+                FirebaseApp.Create(new AppOptions
+                {
+                    ProjectId = "barakahtravel-staffapp",
+                    Credential = GoogleCredential.GetApplicationDefault()
+                });
+            }
+
+            // Checks the signature, expiry, audience and issuer of the token.
+            FirebaseToken decoded =
+                await FirebaseAuth.DefaultInstance
+                    .VerifyIdTokenAsync(request.IdToken, checkRevoked: true);
+
+            // Only trust the email address if Google has verified it.
+            var emailVerified =
+                decoded.Claims.TryGetValue("email_verified", out var verified) &&
+                verified is bool isVerified && isVerified;
+
+            if (!emailVerified ||
+                !decoded.Claims.TryGetValue("email", out var emailClaim) ||
+                emailClaim is not string rawEmail)
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "Your Google email address is not verified."
+                });
+            }
+
+            var email = rawEmail.Trim().ToLowerInvariant();
+
+            // Customers are registered by staff first; Google only signs in an existing account.
+            var account = await _context.CustomerAccounts
+                .FirstOrDefaultAsync(a =>
+                    a.Email == email && a.IsActive);
+
+            if (account == null)
+            {
+                return StatusCode(403, new
+                {
+                    success = false,
+                    message = "No customer account uses this Google email."
+                });
+            }
+
+            var customer = await _context.Customers
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c =>
+                    c.CustomerId == account.CustomerId);
+
+            return Ok(new
+            {
+                success = true,
+                message = "Google sign-in successful.",
+                customerId = account.CustomerId,
+                firstName = customer?.FirstName ?? "Customer",
+                email = account.Email
+            });
+        }
+        catch (FirebaseAuthException)
+        {
+            return Unauthorized(new
+            {
+                success = false,
+                message = "Invalid or expired Google sign-in."
+            });
+        }
+        catch (Exception)
+        {
+            return StatusCode(503, new
+            {
+                success = false,
+                message = "Google sign-in is temporarily unavailable."
+            });
+        }
     }
 
     // GET: api/CustomerAuth/me
