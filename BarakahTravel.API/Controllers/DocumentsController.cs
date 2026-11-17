@@ -29,6 +29,9 @@ public class DocumentsController : ControllerBase
     {
         "Passport Copy",
         "ID Document",
+        "Birth Certificate",
+        "Passport Photo 1",
+        "Passport Photo 2",
         "Other"
     };
 
