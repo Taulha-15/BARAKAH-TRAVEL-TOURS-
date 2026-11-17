@@ -15,8 +15,8 @@ android {
         applicationId = "com.barakahtravel.staff"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
 
         // Emulator development address.
         // We will configure a reachable HTTPS address
@@ -26,6 +26,32 @@ android {
             "API_BASE_URL",
             "\"https://18m5qscn-7000.euw.devtunnels.ms/\""
         )
+    }
+
+    // Release signing – values come from environment variables or gradle.properties
+    // (never commit the keystore or passwords).
+    signingConfigs {
+        create("release") {
+            val ksPath = System.getenv("KEYSTORE_PATH") ?: (project.findProperty("KEYSTORE_PATH") as String?)
+            if (ksPath != null) {
+                storeFile = file(ksPath)
+                storePassword = System.getenv("KEYSTORE_PASSWORD") ?: (project.findProperty("KEYSTORE_PASSWORD") as String?)
+                keyAlias = System.getenv("KEY_ALIAS") ?: (project.findProperty("KEY_ALIAS") as String?)
+                keyPassword = System.getenv("KEY_PASSWORD") ?: (project.findProperty("KEY_PASSWORD") as String?)
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            // Hosted HTTPS API for production; set API_BASE_URL_RELEASE in gradle.properties.
+            val releaseUrl = (project.findProperty("API_BASE_URL_RELEASE") as String?)
+                ?: "https://CHANGE-ME.azurewebsites.net/"
+            buildConfigField("String", "API_BASE_URL", "\"$releaseUrl\"")
+            val hasKeystore = (System.getenv("KEYSTORE_PATH") ?: project.findProperty("KEYSTORE_PATH")) != null
+            if (hasKeystore) signingConfig = signingConfigs.getByName("release")
+        }
     }
 
     buildFeatures {
@@ -44,6 +70,9 @@ android {
 }
 
 dependencies {
+    // Unit testing
+    testImplementation("junit:junit:4.13.2")
+
     // Jetpack Compose
     implementation(platform("androidx.compose:compose-bom:2024.10.01"))
     implementation("androidx.activity:activity-compose:1.9.3")
