@@ -1,241 +1,146 @@
 # Barakah Travel & Tours – Integrated Umrah Management System
 
-## Project Overview
+![Build](https://github.com/Taulha-15/BARAKAH-TRAVEL-TOURS-/actions/workflows/android-ci.yml/badge.svg)
 
-Barakah Travel & Tours is an Umrah travel management system developed to help organise customer information, travel applications, supporting documents, bookings and travel-related services.
+**Module:** XISD6329 – Work Integrated Learning 3B  
+**Team:** Aneeqah Fisher (ST10454674) · Taulha Basardien (ST10457106) · Ingvar Thor Hultkrantz (ST10434704)
 
-The project consists of an Android staff application, an ASP.NET Core Web API, a customer-facing website and an Azure SQL relational database.
+## Demonstration video
 
-The system aims to reduce manual administration, improve access to customer records and provide a more organised approach to managing Umrah travel services.
+[![Watch the demo](docs/images/video-thumbnail.png)](https://youtu.be/G3n2f-ZlwRU)
 
+https://youtu.be/G3n2f-ZlwRU – Android staff app on a physical phone, Google Sign-In, dashboard, customers, applications, documents, settings, and the data stored in Azure SQL.
 
-## Task 2 – Video Demonstration
+## Purpose of the system
 
-A demonstration of the Barakah Travel & Tours
-Integrated Umrah Management System, including the
-Android staff application, Firebase Google Sign-In,
-customer management, application tracking,
-document verification, settings, and system integration.
+Barakah Travel & Tours is an Umrah travel provider. Before this project, staff collected customer details and documents by hand and re-typed them. This system replaces that with:
 
-**Watch the demonstration on YouTube:**
-https://youtu.be/G3n2f-ZlwRU
+- a **customer website** where registered customers (registered by staff, who issue a *registration code*) complete their details, choose a package, upload documents and track their application;
+- an **Android staff app** where authorised staff manage customers, applications and documents;
+- one **ASP.NET Core 8 API** and one **Azure SQL database** shared by both, so nothing is entered twice.
 
+**Target users:** pilgrims (customers) and Barakah staff/administrators.
 
-## Project Objectives
+## Design considerations
 
-- Provide a centralised system for managing Umrah-related information.
-- Allow authorised staff to securely access customer and application records.
-- Connect the Android application to a backend API and relational database.
-- Support the management and verification of customer documents.
-- Improve the usability and efficiency of administrative processes.
-- Apply version control and automated build testing during development.
+- **Single source of truth** – website and app use the same API and database.
+- **Two authentication models** – staff use Google Sign-In through Firebase; the API verifies the Firebase ID token and checks the user is an active Admin/Staff in the `Users` table. Customers use a registration code plus an email/password account; passwords are stored only as ASP.NET Core Identity hashes.
+- **Privacy** – uploaded documents are only reachable by authorised users; the database schema export contains no customer data or passwords.
+- **Usability** – clear navigation, input validation (`Validation.kt`, form validation on the website), friendly error messages.
+- **Maintainability** – separate folders for app, API, website and database; CI on every push.
 
-## System Components
+## Screenshots
 
-### 1. Android Staff Application
+### Android staff app (Samsung Galaxy S26)
 
-Developed using **Kotlin and Jetpack Compose** in Android Studio.
+| Sign in | Dashboard | Customers |
+|---|---|---|
+| ![Login](docs/images/app-login.png) | ![Dashboard](docs/images/app-dashboard.png) | ![Customers](docs/images/app-customers.png) |
 
-Implemented features include:
+| Applications | Documents | Settings |
+|---|---|---|
+| ![Applications](docs/images/app-applications.png) | ![Documents](docs/images/app-documents.png) | ![Settings](docs/images/app-settings.png) |
 
-- Firebase Google Sign-In authentication.
-- Staff dashboard displaying live database record counts.
-- Customer records retrieved through the API.
-- Travel application records and application management.
-- Customer document listing and secure document viewing.
-- Settings screen with user preferences, staff information and sign-out.
-- Navigation between administrative sections.
+### Customer website
 
-Additional sections for packages, bookings, payments and travel schedules are included in the application structure but are not yet fully integrated.
+| Home | Packages | Register |
+|---|---|---|
+| ![Home](docs/images/web-home.png) | ![Packages](docs/images/web-packages.png) | ![Register](docs/images/web-register.png) |
 
-The application has been tested on a physical Samsung Galaxy S26 device.
+> Add the website screenshots to `docs/images/` using the names above.
 
-### 2. ASP.NET Core Web API
+### Wireframes
+Customer website wireframes are in `docs/images/wireframes/`.
 
-Developed using **C# and ASP.NET Core 8**.
+## Repository structure
 
-The API provides the communication layer between the applications and the Azure SQL database.
+```
+app/                     Android staff app (Kotlin, Jetpack Compose)
+  src/main/              application source and resources
+  src/test/              unit tests (ValidationTest.kt)
+BarakahTravel.API/       ASP.NET Core 8 Web API
+BarakahTravel.Website/   Razor Pages customer website
+database/                schema export (.dacpac), README, seed_customer_accounts.sql
+prototype/               Task 1 HTML/CSS/JS staff-portal prototype
+docs/                    screenshots, wireframes and the Staff App User Guide (PDF)
+.github/workflows/       GitHub Actions workflow (android-ci.yml)
+```
 
-Its responsibilities include retrieving and managing system information, supporting administrative operations and handling requests from the connected applications.
-
-### 3. Customer Website
-
-A customer-facing website is included in the repository.
-
-The website provides a web-based interface for the customer side of the Umrah travel management system.
-
-### 4. Azure SQL Database
-
-The system uses **Microsoft Azure SQL Database** to store relational data.
-
-The database contains 11 tables covering:
-
-- Customers
-- CustomerAccounts
-- CustomerRegistrationCodes
-- Users
-- Applications
-- Documents
-- Packages
-- Bookings
-- Payments
-- TravelDetails
-- TravelSchedules
-
-The database structure includes primary keys and foreign-key relationships to support data integrity.
-
-## Technologies Used
+## Technologies
 
 | Component | Technology |
 |---|---|
-| Android application | Kotlin, Jetpack Compose |
-| Android development | Android Studio |
-| Authentication | Firebase Authentication, Google Sign-In |
-| Backend API | C#, ASP.NET Core 8 |
-| Customer website | ASP.NET Core, Razor, HTML, CSS, JavaScript |
-| Database | Microsoft Azure SQL Database |
-| Backend development | Visual Studio |
-| Version control | Git, GitHub, Azure DevOps |
-| Automated testing | GitHub Actions, Gradle |
-| API connectivity | HTTPS and development tunnelling |
+| Android app | Kotlin, Jetpack Compose, Retrofit, DataStore |
+| Authentication | Firebase Authentication, Google Sign-In (staff); ASP.NET Core Identity password hashing (customers) |
+| API | C#, ASP.NET Core 8, Entity Framework Core |
+| Website | ASP.NET Core Razor Pages, HTML, CSS, JavaScript, Bootstrap |
+| Database | Microsoft Azure SQL Database (11 tables) |
+| Source control / CI | Git, GitHub, GitHub Actions, Azure DevOps / Azure Boards |
 
-## Repository Structure
+## Setup
 
-The repository includes:
+### Android app
+1. Clone the repo and open it in Android Studio; let Gradle sync.
+2. Put your Firebase `google-services.json` in `app/` (never commit it).
+3. Set the API address in `app/build.gradle.kts` (`API_BASE_URL` for debug; `API_BASE_URL_RELEASE` in `gradle.properties` for release).
+4. Run on a physical Android device.
 
-- `app/` – Android application source code and resources.
-- `gradlew` – Gradle wrapper script.
-- `settings.gradle.kts` – Android Gradle project configuration.
-- `BarakahTravel.API/` – ASP.NET Core backend API.
-- `BarakahTravel.Website/` – Customer-facing website.
-- `database/` – Database documentation and schema export.
-- `.github/workflows/android-ci.yml` – GitHub Actions workflow.
-- `README.md` – Project documentation.
+### API
+1. Open `BarakahTravel.API.sln` in Visual Studio with the .NET 8 SDK. In Development the API opens Swagger UI, which lists and lets you test every endpoint.
+2. Set the `DefaultConnection` connection string (user secrets / environment variable – not in source control).
+3. Run the API.
 
-Additional project files and supporting resources are also included.
+### Website
+1. Open `BarakahTravel.Website` in Visual Studio, set the API base address in configuration, and run.
 
-## Installation and Setup
+### Database
+Use `database/BarakahTravelD_Schema.dacpac` to create the schema. Optional test data: `database/seed_customer_accounts.sql` adds nine simulated customer accounts (hashed passwords).
 
-### Android Staff Application
+## GitHub and GitHub Actions
 
-1. Clone the GitHub repository.
-2. Open the repository as a project in Android Studio.
-3. Allow Gradle to synchronise the project dependencies.
-4. Configure Firebase using the appropriate `google-services.json` file.
-5. Ensure the backend API is accessible and configured correctly.
-6. Connect an Android device or start a compatible emulator.
-7. Build and run the Android application.
-
-**Note:** Firebase configuration files and private credentials should be managed securely and must not be exposed publicly.
-
-### ASP.NET Core API
-
-1. Open the API project in Visual Studio.
-2. Ensure the .NET 8 SDK is installed.
-3. Configure the database connection using secure application configuration.
-4. Ensure the Azure SQL database is accessible.
-5. Build and run the API.
-6. Verify that the Android application can communicate with the API.
-
-### Customer Website
-
-1. Open the website project in Visual Studio.
-2. Restore the required .NET dependencies.
-3. Configure the website's API and application settings.
-4. Build and run the website.
-
-Some functionality requires the API, database and authentication services to be available.
-
-## Automated Testing and Continuous Integration
-
-The project uses **GitHub Actions** for automated Android builds and testing.
-
-The workflow is located at:
-
-`.github/workflows/android-ci.yml`
-
-The workflow runs when:
-
-- Changes are pushed to the `main` branch.
-- A pull request targets `main`.
-- The workflow is started manually.
-
-### Workflow Steps
-
-1. Check out the repository.
-2. Configure Java 17.
-3. Restore Firebase configuration from a GitHub Actions secret.
-4. Run the Android unit-test task.
-5. Build the Android debug APK.
-
-### Gradle Commands
-
-Run Android unit tests:
+`.github/workflows/android-ci.yml` runs on every push and pull request to `main` and can be started manually. Steps: checkout → Java 17 → restore Firebase config from the `GOOGLE_SERVICES_JSON` secret → `./gradlew :app:testDebugUnitTest` → `./gradlew :app:assembleDebug`.
 
 ```bash
-./gradlew :app:testDebugUnitTest --no-daemon
+./gradlew :app:testDebugUnitTest --no-daemon   # unit tests
+./gradlew :app:assembleDebug --no-daemon       # debug APK
 ```
 
-Build the debug APK:
+## Automated tests
 
-```bash
-./gradlew :app:assembleDebug --no-daemon
-```
+`app/src/test/java/com/barakahtravel/staff/ValidationTest.kt` – 25 JUnit tests covering email, password, phone, name and registration-code validation (valid, invalid and boundary cases). More API and repository tests are listed under *Future improvements*.
 
-### Continuous Integration Status
+## Publishing (Google Play)
 
-The Android build and test workflow has completed successfully on GitHub Actions.
+1. Create a keystore (Android Studio → Build → Generate Signed Bundle/APK, or `keytool`). Keep it out of the repo.
+2. Provide `KEYSTORE_PATH`, `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD` as environment variables or in your local `gradle.properties`.
+3. Set `API_BASE_URL_RELEASE` to the hosted HTTPS API.
+4. Build: `./gradlew :app:bundleRelease` (or `assembleRelease`), then upload the `.aab` in the Google Play Console.
 
-The successful run confirms that the configured Android build and test tasks execute in the CI environment. It does not replace manual testing of application functionality.
+## Release notes
 
-## Testing and Validation
+### v1.1 – final submission
+- **New:** customers can now upload an *unabridged birth certificate* (under 18) and *two passport photos* – added to the website upload form and API validation.
+- **New:** release signing configuration and a separate release API address for Play Store builds; version bumped to 1.1 (versionCode 2).
+- **New:** automated unit tests (`ValidationTest.kt`) now run in GitHub Actions.
+- **New:** `seed_customer_accounts.sql` brings `CustomerAccounts` to at least ten records.
+- **Fixed:** the notice “The coroutine scope left the composition” no longer appears when moving between screens – cancelled coroutines are now rethrown instead of being shown as errors (`MainActivity.kt`).
+- **Improved:** repository root cleaned (duplicate Kotlin files removed, Task 1 prototype moved to `prototype/`).
+- **Improved:** README rewritten with purpose, design, setup, CI and publishing guidance.
 
-Testing activities include:
+### Features of this version
+- **Google Single Sign-On for staff** with server-side Firebase token verification and an active-staff check.
+- **Live dashboard** with customer, application and document counts from the API.
+- **In-app document review** (view, verify, reject/request again).
+- **Registration-code onboarding** that links staff-created customer records to the customer website account.
 
-- Running the Android application on a physical Samsung Galaxy S26.
-- Verifying Firebase Google Sign-In.
-- Checking dashboard data retrieved from the API.
-- Testing customer and application information screens.
-- Checking document access and viewing.
-- Testing settings and sign-out functionality.
-- Verifying communication with the ASP.NET Core API.
-- Checking relational database structure and data.
-- Running automated Android build and test tasks through GitHub Actions.
+### v1.0 – Task 2 prototype
+Android staff app (sign-in, dashboard, customers, applications, documents, settings), ASP.NET Core API, Razor Pages website, Azure SQL schema, first CI workflow.
 
-## Security Considerations
+## Known limitations / future improvements
+- Packages, bookings, payments and travel schedules are not yet fully integrated in the Android app.
+- The customer website uses code + password login; Google sign-in for customers is planned.
+- Add API and repository tests to the workflow.
+- Move development data-protection keys and tunnel URL to configuration/hosting.
 
-The system incorporates authentication and controlled access to application functionality.
-
-Sensitive configuration values, database passwords and private credentials should not be committed to public repositories.
-
-Firebase configuration required for automated builds is supplied through GitHub Actions repository secrets.
-
-Customer documents and personal information must be handled securely.
-
-## Version Control and Collaboration
-
-Git is used to track development changes.
-
-**Azure DevOps** is used for project source control and collaboration, while **GitHub** contains the integrated project and GitHub Actions workflow.
-
-Pull requests and commits provide a record of project development and integration.
-
-## Future Improvements
-
-Potential future enhancements include:
-
-- Full Android integration of package management.
-- Complete booking and payment management screens.
-- Travel schedule management.
-- Automated customer notifications.
-- Online payment integration.
-- Improved reporting and administrative analytics.
-- Additional automated unit and integration tests.
-
-## Conclusion
-
-The Barakah Travel & Tours Integrated Umrah Management System combines Android, web, API and database technologies to support travel administration.
-
-The project demonstrates mobile application development, backend API integration, relational database design, authentication, source control and automated build testing.
-
-The implemented system provides a foundation for expanding and improving Umrah travel management services.
+## User documentation
+See [`docs/Barakah_Travel_Staff_App_User_Guide.pdf`](docs/Barakah_Travel_Staff_App_User_Guide.pdf) – an 8-page guide with screenshots of every staff screen.
