@@ -1,4 +1,9 @@
 package com.barakahtravel.staff
+/*
+ * LocalStorage.kt – small user preferences saved with Jetpack DataStore
+ * (staff name, dark mode, notifications, last page).
+ * The current Settings screen keeps dark mode in SharedPreferences inside MainActivity.kt.
+ */
 
 import android.content.Context
 import androidx.datastore.preferences.core.*
@@ -8,6 +13,7 @@ import kotlinx.coroutines.flow.map
 
 private val Context.dataStore by preferencesDataStore(name = "barakah_prefs")
 
+/** Exposes each preference as a Flow so the UI updates when a value changes. */
 class LocalStorage(private val context: Context) {
 
     private object Keys {

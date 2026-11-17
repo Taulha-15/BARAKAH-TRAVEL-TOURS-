@@ -1,7 +1,15 @@
 package com.barakahtravel.staff
+/*
+ * Validation.kt – input rules for the staff app forms.
+ * Each function returns an error message, or null when the value is valid.
+ * Used by EditCustomerScreen (name, email, phone) and covered by ValidationTest.kt.
+ */
 
+/** Central place for form validation so the rules are written once and unit tested. */
 object Validation {
+    // Simple email pattern: text @ domain . 2+ letters
     private val emailRe = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
+    // South African style number: 0XX XXX XXXX (spaces optional)
     private val phoneRe = Regex("^0\\d{2}\\s?\\d{3}\\s?\\d{4}$")
 
     fun validateEmail(email: String): String? = when {
@@ -10,6 +18,7 @@ object Validation {
         else -> null
     }
 
+    // Password rules: 8+ characters, one uppercase letter, one digit
     fun validatePassword(pw: String): String? = when {
         pw.isBlank() -> "Password is required"
         pw.length < 8 -> "Password must be at least 8 characters"
@@ -30,6 +39,7 @@ object Validation {
         else -> null
     }
 
+    // Registration codes look like BRK-XXXXXXXX (12 characters)
     fun validateRegistrationCode(code: String): String? = when {
         code.isBlank() -> "Code is required"
         !code.startsWith("BRK-") -> "Code must start with BRK-"

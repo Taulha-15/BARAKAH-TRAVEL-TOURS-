@@ -176,8 +176,21 @@ fun BarakahApp() {
     val documents = remember {
         mutableStateListOf<StaffDocument>()
     }
+    val packages = remember {
+        mutableStateListOf<TravelPackage>()
+    }
+    val bookings = remember {
+        mutableStateListOf<Booking>()
+    }
+    val payments = remember {
+        mutableStateListOf<Payment>()
+    }
+    val schedules = remember {
+        mutableStateListOf<TravelSchedule>()
+    }
     LaunchedEffect(page, signedIn) {
         if (signedIn) {
+
 
             // Load customers on Dashboard or Customers page.
             if (page == "Dashboard" || page == "Customers") {
@@ -222,6 +235,53 @@ fun BarakahApp() {
                         e.message ?: "Unable to load documents."
                 }
             }
+            // Load packages on Dashboard or Packages page.
+            if (page == "Dashboard" || page == "Packages") {
+                try {
+                    val realPackages = fetchStaffPackages()
+                    packages.clear()
+                    packages.addAll(realPackages)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    notice = e.message ?: "Unable to load packages."
+                }
+            }
+            // Load bookings on Dashboard or Bookings page.
+            if (page == "Dashboard" || page == "Bookings") {
+                try {
+                    val realBookings = fetchStaffBookings()
+                    bookings.clear()
+                    bookings.addAll(realBookings)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    notice = e.message ?: "Unable to load bookings."
+                }
+            }
+            // Load payments on Dashboard or Payments page.
+            if (page == "Dashboard" || page == "Payments") {
+                try {
+                    val realPayments = fetchStaffPayments()
+                    payments.clear()
+                    payments.addAll(realPayments)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    notice = e.message ?: "Unable to load payments."
+                }
+            }
+            if (page == "Dashboard" || page == "Travel Schedule") {
+                try {
+                    val realSchedules = fetchStaffTravelSchedules()
+                    schedules.clear()
+                    schedules.addAll(realSchedules)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    notice = e.message ?: "Unable to load travel schedules."
+                }
+            }
         }
     }
 
@@ -239,7 +299,7 @@ fun BarakahApp() {
             color = MaterialTheme.colorScheme.background
         ) {
 
-        if (!signedIn) {
+            if (!signedIn) {
                 LoginScreen(
                     onLogin = { authorizedStaffName ->
                         staffName = preferences.getString(
@@ -299,6 +359,7 @@ fun BarakahApp() {
                             customers.size,
                             applications.size,
                             documents.size,
+                            bookingsCount = bookings.size,
                             onNavigate = { page = it }
                         )
 
@@ -354,7 +415,7 @@ fun BarakahApp() {
                                                 notice = e.message ?: "Unable to save customer."
                                             }
 
-                                                }
+                                        }
                                     }
                                 )
                             }
@@ -441,37 +502,253 @@ fun BarakahApp() {
 
                         )
 
+                        "Packages" -> StaffPackagesScreen(
+                            packages = packages,
+
+                            onAdd = { newPackage ->
+                                scope.launch {
+                                    try {
+                                        saveStaffPackage(newPackage)
+
+                                        val updatedPackages = fetchStaffPackages()
+                                        packages.clear()
+                                        packages.addAll(updatedPackages)
+
+                                        notice = "Package added successfully."
+                                    } catch (e: CancellationException) {
+                                        throw e
+                                    } catch (e: Exception) {
+                                        notice = e.message ?: "Unable to add package."
+                                    }
+                                }
+                            },
+
+                            onUpdate = { updatedPackage ->
+                                scope.launch {
+                                    try {
+                                        saveStaffPackage(updatedPackage)
+
+                                        val updatedPackages = fetchStaffPackages()
+                                        packages.clear()
+                                        packages.addAll(updatedPackages)
+
+                                        notice = "Package updated successfully."
+                                    } catch (e: CancellationException) {
+                                        throw e
+                                    } catch (e: Exception) {
+                                        notice = e.message ?: "Unable to update package."
+                                    }
+                                }
+                            },
+
+                            onToggleActive = { selectedPackage ->
+                                scope.launch {
+                                    try {
+                                        updateStaffPackageActive(
+                                            selectedPackage.id,
+                                            selectedPackage.isActive
+                                        )
+
+                                        val index = packages.indexOfFirst {
+                                            it.id == selectedPackage.id
+                                        }
+
+                                        if (index >= 0) {
+                                            packages[index] = selectedPackage
+                                        }
+
+                                        notice = if (selectedPackage.isActive) {
+                                            "Package activated successfully."
+                                        } else {
+                                            "Package deactivated successfully."
+                                        }
+                                    } catch (e: CancellationException) {
+                                        throw e
+                                    } catch (e: Exception) {
+                                        notice = e.message ?: "Unable to update package status."
+                                    }
+                                }
+                            }
+                        )
+
+                        "Bookings" -> StaffBookingsScreen(
+                            bookings = bookings,
+                            applications = applications,
+
+                            onCreateBooking = { applicationId, notes ->
+                                scope.launch {
+                                    try {
+                                        createStaffBooking(
+                                            applicationId = applicationId,
+                                            notes = notes
+                                        )
+
+                                        val updatedBookings = fetchStaffBookings()
+                                        bookings.clear()
+                                        bookings.addAll(updatedBookings)
+
+                                        notice = "Booking created successfully."
+                                    } catch (e: CancellationException) {
+                                        throw e
+                                    } catch (e: Exception) {
+                                        notice = e.message ?: "Unable to create booking."
+                                    }
+                                }
+                            },
+
+                            onUpdateStatus = { selectedBooking, newStatus ->
+                                scope.launch {
+                                    try {
+                                        updateStaffBookingStatus(
+                                            bookingId = selectedBooking.id,
+                                            status = newStatus
+                                        )
+
+                                        val updatedBookings = fetchStaffBookings()
+                                        bookings.clear()
+                                        bookings.addAll(updatedBookings)
+
+                                        notice = "Booking status updated successfully."
+                                    } catch (e: CancellationException) {
+                                        throw e
+                                    } catch (e: Exception) {
+                                        notice = e.message ?: "Unable to update booking status."
+                                    }
+                                }
+                            }
+                        )
+                        "Payments" -> StaffPaymentsScreen(
+                            payments = payments,
+                            bookings = bookings,
+
+                            onCreatePayment = {
+                                    bookingId,
+                                    amount,
+                                    paymentDate,
+                                    paymentMethod,
+                                    referenceNumber,
+                                    notes ->
+
+                                scope.launch {
+                                    try {
+                                        createStaffPayment(
+                                            bookingId = bookingId,
+                                            amount = amount,
+                                            paymentDate = paymentDate,
+                                            paymentMethod = paymentMethod,
+                                            referenceNumber = referenceNumber,
+                                            notes = notes
+                                        )
+
+                                        val updatedPayments = fetchStaffPayments()
+                                        payments.clear()
+                                        payments.addAll(updatedPayments)
+
+                                        notice = "Payment recorded successfully."
+                                    } catch (e: CancellationException) {
+                                        throw e
+                                    } catch (e: Exception) {
+                                        notice = e.message ?: "Unable to record payment."
+                                    }
+                                }
+                            },
+
+                            onUpdateStatus = { selectedPayment, newStatus ->
+                                scope.launch {
+                                    try {
+                                        updateStaffPaymentStatus(
+                                            paymentId = selectedPayment.id,
+                                            status = newStatus
+                                        )
+
+                                        val updatedPayments = fetchStaffPayments()
+                                        payments.clear()
+                                        payments.addAll(updatedPayments)
+
+                                        notice = "Payment status updated successfully."
+                                    } catch (e: CancellationException) {
+                                        throw e
+                                    } catch (e: Exception) {
+                                        notice = e.message ?: "Unable to update payment status."
+                                    }
+                                }
+                            }
+                        )
 
 
-                        "Packages" -> EmptyState(
-                            "Umrah Packages",
-                            "Package management is not available in the staff app yet."
-                        ) {
-                            page = "Dashboard"
-                        }
+                        "Travel Schedule" -> StaffTravelScheduleScreen(
+                            schedules = schedules,
+                            bookings = bookings,
 
-                        "Bookings" -> EmptyState(
-                            "Bookings",
-                            "Booking management is not connected to the staff API yet."
-                        ) {
-                            page = "Dashboard"
-                        }
+                            onAdd = {
+                                    bookingId, departureDate, returnDate,
+                                    departureTime, returnTime, departureAirport,
+                                    arrivalAirport, airline, flightNumber, status, notes ->
 
-                        "Payments" -> EmptyState(
-                            "Payments",
-                            "Payment management is not connected to a payment provider."
-                        ) {
-                            page = "Dashboard"
-                        }
+                                scope.launch {
+                                    try {
+                                        createStaffTravelSchedule(
+                                            bookingId = bookingId,
+                                            departureDate = departureDate,
+                                            returnDate = returnDate,
+                                            departureTime = departureTime.ifBlank { null },
+                                            returnTime = returnTime.ifBlank { null },
+                                            departureAirport = departureAirport.ifBlank { null },
+                                            arrivalAirport = arrivalAirport.ifBlank { null },
+                                            airline = airline.ifBlank { null },
+                                            flightNumber = flightNumber.ifBlank { null },
+                                            status = status,
+                                            notes = notes.ifBlank { null }
+                                        )
 
-                        "Travel Schedule" -> EmptyState(
-                            "Travel Schedule",
-                            "Travel schedule management is not available yet."
-                        ) {
-                            page = "Dashboard"
-                        }
+                                        val updatedSchedules = fetchStaffTravelSchedules()
+                                        schedules.clear()
+                                        schedules.addAll(updatedSchedules)
 
+                                        notice = "Travel schedule created successfully."
+                                    } catch (e: CancellationException) {
+                                        throw e
+                                    } catch (e: Exception) {
+                                        notice = e.message ?: "Unable to create travel schedule."
+                                    }
+                                }
+                            },
 
+                            onUpdate = {
+                                    scheduleId, bookingId, departureDate, returnDate,
+                                    departureTime, returnTime, departureAirport,
+                                    arrivalAirport, airline, flightNumber, status, notes ->
+
+                                scope.launch {
+                                    try {
+                                        updateStaffTravelSchedule(
+                                            scheduleId = scheduleId,
+                                            bookingId = bookingId,
+                                            departureDate = departureDate,
+                                            returnDate = returnDate,
+                                            departureTime = departureTime.ifBlank { null },
+                                            returnTime = returnTime.ifBlank { null },
+                                            departureAirport = departureAirport.ifBlank { null },
+                                            arrivalAirport = arrivalAirport.ifBlank { null },
+                                            airline = airline.ifBlank { null },
+                                            flightNumber = flightNumber.ifBlank { null },
+                                            status = status,
+                                            notes = notes.ifBlank { null }
+                                        )
+
+                                        val updatedSchedules = fetchStaffTravelSchedules()
+                                        schedules.clear()
+                                        schedules.addAll(updatedSchedules)
+
+                                        notice = "Travel schedule updated successfully."
+                                    } catch (e: CancellationException) {
+                                        throw e
+                                    } catch (e: Exception) {
+                                        notice = e.message ?: "Unable to update travel schedule."
+                                    }
+                                }
+                            }
+                        )
 
                         "Settings" -> SettingsScreen(
                             staffName = staffName,
@@ -521,6 +798,7 @@ fun BarakahApp() {
                             customerCount = customers.size,
                             applicationCount = applications.size,
                             documentCount = documents.size,
+                            bookingsCount = bookings.size,
                             onNavigate = { page = it }
                         )
                     }
@@ -530,6 +808,627 @@ fun BarakahApp() {
                 }
             }
         }
+    }
+}
+
+suspend fun fetchStaffTravelSchedules(): List<TravelSchedule> =
+    withContext(Dispatchers.IO) {
+        val user = FirebaseAuth.getInstance().currentUser
+            ?: throw Exception("Please sign in again.")
+
+        val token = user.getIdToken(false).await().token
+            ?: throw Exception("Could not obtain Firebase token.")
+
+        val url = URL(
+            "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffTravelSchedules"
+        )
+        val connection = url.openConnection() as HttpURLConnection
+
+        try {
+            connection.requestMethod = "GET"
+            connection.setRequestProperty("Authorization", "Bearer $token")
+            connection.connectTimeout = 15000
+            connection.readTimeout = 15000
+
+            if (connection.responseCode != 200) {
+                throw Exception(
+                    "Travel Schedule API returned HTTP ${connection.responseCode}"
+                )
+            }
+
+            val json = JSONArray(
+                connection.inputStream.bufferedReader().use { it.readText() }
+            )
+
+            (0 until json.length()).map { index ->
+                val item = json.getJSONObject(index)
+
+                TravelSchedule(
+                    id = item.optInt("id"),
+                    bookingId = item.optInt("bookingId"),
+                    bookingReference = item.optString("bookingReference"),
+                    customer = item.optString("customer"),
+                    packageName = item.optString("packageName"),
+                    departureDate = item.optString("departureDate"),
+                    returnDate = item.optString("returnDate"),
+                    departureTime = item.optString("departureTime")
+                        .takeIf { it != "null" && it.isNotBlank() },
+                    returnTime = item.optString("returnTime")
+                        .takeIf { it != "null" && it.isNotBlank() },
+                    departureAirport = item.optString("departureAirport")
+                        .takeIf { it != "null" && it.isNotBlank() },
+                    arrivalAirport = item.optString("arrivalAirport")
+                        .takeIf { it != "null" && it.isNotBlank() },
+                    airline = item.optString("airline")
+                        .takeIf { it != "null" && it.isNotBlank() },
+                    flightNumber = item.optString("flightNumber")
+                        .takeIf { it != "null" && it.isNotBlank() },
+                    status = item.optString("status", "Scheduled"),
+                    notes = item.optString("notes")
+                        .takeIf { it != "null" && it.isNotBlank() }
+                )
+            }
+        } finally {
+            connection.disconnect()
+        }
+    }
+
+
+suspend fun createStaffTravelSchedule(
+    bookingId: Int,
+    departureDate: String,
+    returnDate: String,
+    departureTime: String?,
+    returnTime: String?,
+    departureAirport: String?,
+    arrivalAirport: String?,
+    airline: String?,
+    flightNumber: String?,
+    status: String,
+    notes: String?
+) = withContext(Dispatchers.IO) {
+    val user = FirebaseAuth.getInstance().currentUser
+        ?: throw Exception("Please sign in again.")
+
+    val token = user.getIdToken(false).await().token
+        ?: throw Exception("Could not obtain Firebase token.")
+
+    val url = URL(
+        "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffTravelSchedules"
+    )
+    val connection = url.openConnection() as HttpURLConnection
+
+    try {
+        connection.requestMethod = "POST"
+        connection.doOutput = true
+        connection.setRequestProperty("Authorization", "Bearer $token")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.connectTimeout = 15000
+        connection.readTimeout = 15000
+
+        val body = JSONObject().apply {
+            put("bookingId", bookingId)
+            put("departureDate", departureDate)
+            put("returnDate", returnDate)
+            put("departureTime", departureTime ?: JSONObject.NULL)
+            put("returnTime", returnTime ?: JSONObject.NULL)
+            put("departureAirport", departureAirport ?: JSONObject.NULL)
+            put("arrivalAirport", arrivalAirport ?: JSONObject.NULL)
+            put("airline", airline ?: JSONObject.NULL)
+            put("flightNumber", flightNumber ?: JSONObject.NULL)
+            put("status", status)
+            put("notes", notes ?: JSONObject.NULL)
+        }
+
+        connection.outputStream.bufferedWriter().use {
+            it.write(body.toString())
+        }
+
+        if (connection.responseCode != 200) {
+            val error = connection.errorStream
+                ?.bufferedReader()?.use { it.readText() }
+
+            throw Exception(
+                error?.takeIf { it.isNotBlank() }
+                    ?: "Unable to create travel schedule. HTTP ${connection.responseCode}"
+            )
+        }
+    } finally {
+        connection.disconnect()
+    }
+}
+
+
+suspend fun updateStaffTravelSchedule(
+    scheduleId: Int,
+    bookingId: Int,
+    departureDate: String,
+    returnDate: String,
+    departureTime: String?,
+    returnTime: String?,
+    departureAirport: String?,
+    arrivalAirport: String?,
+    airline: String?,
+    flightNumber: String?,
+    status: String,
+    notes: String?
+) = withContext(Dispatchers.IO) {
+    val user = FirebaseAuth.getInstance().currentUser
+        ?: throw Exception("Please sign in again.")
+
+    val token = user.getIdToken(false).await().token
+        ?: throw Exception("Could not obtain Firebase token.")
+
+    val url = URL(
+        "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffTravelSchedules/$scheduleId"
+    )
+    val connection = url.openConnection() as HttpURLConnection
+
+    try {
+        connection.requestMethod = "PUT"
+        connection.doOutput = true
+        connection.setRequestProperty("Authorization", "Bearer $token")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.connectTimeout = 15000
+        connection.readTimeout = 15000
+
+        val body = JSONObject().apply {
+            put("bookingId", bookingId)
+            put("departureDate", departureDate)
+            put("returnDate", returnDate)
+            put("departureTime", departureTime ?: JSONObject.NULL)
+            put("returnTime", returnTime ?: JSONObject.NULL)
+            put("departureAirport", departureAirport ?: JSONObject.NULL)
+            put("arrivalAirport", arrivalAirport ?: JSONObject.NULL)
+            put("airline", airline ?: JSONObject.NULL)
+            put("flightNumber", flightNumber ?: JSONObject.NULL)
+            put("status", status)
+            put("notes", notes ?: JSONObject.NULL)
+        }
+
+        connection.outputStream.bufferedWriter().use {
+            it.write(body.toString())
+        }
+
+        if (connection.responseCode != 200) {
+            val error = connection.errorStream
+                ?.bufferedReader()?.use { it.readText() }
+
+            throw Exception(
+                error?.takeIf { it.isNotBlank() }
+                    ?: "Unable to update travel schedule. HTTP ${connection.responseCode}"
+            )
+        }
+    } finally {
+        connection.disconnect()
+    }
+}
+
+suspend fun fetchStaffPayments(): List<Payment> =
+    withContext(Dispatchers.IO) {
+        val user = FirebaseAuth.getInstance().currentUser
+            ?: throw Exception("Please sign in again.")
+
+        val token = user.getIdToken(false).await().token
+            ?: throw Exception("Could not obtain Firebase token.")
+
+        val url = URL(
+            "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffPayments"
+        )
+        val connection = url.openConnection() as HttpURLConnection
+
+        try {
+            connection.requestMethod = "GET"
+            connection.setRequestProperty("Authorization", "Bearer $token")
+            connection.connectTimeout = 15000
+            connection.readTimeout = 15000
+
+            if (connection.responseCode != 200) {
+                throw Exception("Payments API returned HTTP ${connection.responseCode}")
+            }
+
+            val json = JSONArray(
+                connection.inputStream.bufferedReader().use { it.readText() }
+            )
+
+            (0 until json.length()).map { index ->
+                val item = json.getJSONObject(index)
+
+                Payment(
+                    id = item.optInt("id"),
+                    bookingId = item.optInt("bookingId"),
+                    customerId = item.optInt("customerId"),
+                    customer = item.optString("customer"),
+                    bookingReference = item.optString("bookingReference"),
+                    amount = item.optDouble("amount"),
+                    paymentDate = item.optString("paymentDate"),
+                    paymentMethod = item.optString("paymentMethod")
+                        .takeIf { it != "null" && it.isNotBlank() },
+                    referenceNumber = item.optString("referenceNumber")
+                        .takeIf { it != "null" && it.isNotBlank() },
+                    status = item.optString("status", "Recorded"),
+                    notes = item.optString("notes")
+                        .takeIf { it != "null" && it.isNotBlank() }
+                )
+            }
+        } finally {
+            connection.disconnect()
+        }
+    }
+
+
+suspend fun createStaffPayment(
+    bookingId: Int,
+    amount: Double,
+    paymentDate: String,
+    paymentMethod: String?,
+    referenceNumber: String?,
+    notes: String?
+) = withContext(Dispatchers.IO) {
+    val user = FirebaseAuth.getInstance().currentUser
+        ?: throw Exception("Please sign in again.")
+
+    val token = user.getIdToken(false).await().token
+        ?: throw Exception("Could not obtain Firebase token.")
+
+    val url = URL(
+        "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffPayments"
+    )
+    val connection = url.openConnection() as HttpURLConnection
+
+    try {
+        connection.requestMethod = "POST"
+        connection.doOutput = true
+        connection.setRequestProperty("Authorization", "Bearer $token")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.connectTimeout = 15000
+        connection.readTimeout = 15000
+
+        val body = JSONObject().apply {
+            put("bookingId", bookingId)
+            put("amount", amount)
+            put("paymentDate", paymentDate)
+            put("paymentMethod", paymentMethod ?: JSONObject.NULL)
+            put("referenceNumber", referenceNumber ?: JSONObject.NULL)
+            put("notes", notes ?: JSONObject.NULL)
+        }
+
+        connection.outputStream.bufferedWriter().use {
+            it.write(body.toString())
+        }
+
+        if (connection.responseCode != 200) {
+            val error = connection.errorStream
+                ?.bufferedReader()?.use { it.readText() }
+
+            throw Exception(
+                error?.takeIf { it.isNotBlank() }
+                    ?: "Unable to record payment. HTTP ${connection.responseCode}"
+            )
+        }
+    } finally {
+        connection.disconnect()
+    }
+}
+
+
+suspend fun updateStaffPaymentStatus(
+    paymentId: Int,
+    status: String
+) = withContext(Dispatchers.IO) {
+    val user = FirebaseAuth.getInstance().currentUser
+        ?: throw Exception("Please sign in again.")
+
+    val token = user.getIdToken(false).await().token
+        ?: throw Exception("Could not obtain Firebase token.")
+
+    val url = URL(
+        "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffPayments/$paymentId/status"
+    )
+    val connection = url.openConnection() as HttpURLConnection
+
+    try {
+        connection.requestMethod = "PUT"
+        connection.doOutput = true
+        connection.setRequestProperty("Authorization", "Bearer $token")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.connectTimeout = 15000
+        connection.readTimeout = 15000
+
+        val body = JSONObject().apply {
+            put("status", status)
+        }
+
+        connection.outputStream.bufferedWriter().use {
+            it.write(body.toString())
+        }
+
+        if (connection.responseCode != 200) {
+            val error = connection.errorStream
+                ?.bufferedReader()?.use { it.readText() }
+
+            throw Exception(
+                error?.takeIf { it.isNotBlank() }
+                    ?: "Unable to update payment status. HTTP ${connection.responseCode}"
+            )
+        }
+    } finally {
+        connection.disconnect()
+    }
+}
+
+suspend fun fetchStaffBookings(): List<Booking> =
+    withContext(Dispatchers.IO) {
+        val user = FirebaseAuth.getInstance().currentUser
+            ?: throw Exception("Please sign in again.")
+
+        val token = user.getIdToken(false).await().token
+            ?: throw Exception("Could not obtain Firebase token.")
+
+        val url = URL(
+            "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffBookings"
+        )
+        val connection = url.openConnection() as HttpURLConnection
+
+        try {
+            connection.requestMethod = "GET"
+            connection.setRequestProperty("Authorization", "Bearer $token")
+            connection.connectTimeout = 15000
+            connection.readTimeout = 15000
+
+            if (connection.responseCode != 200) {
+                throw Exception("Bookings API returned HTTP ${connection.responseCode}")
+            }
+
+            val json = JSONArray(
+                connection.inputStream.bufferedReader().use { it.readText() }
+            )
+
+            (0 until json.length()).map { index ->
+                val item = json.getJSONObject(index)
+
+                Booking(
+                    id = item.optInt("id"),
+                    applicationId = item.optInt("applicationId"),
+                    customerId = item.optInt("customerId"),
+                    customer = item.optString("customer"),
+                    packageId = item.optInt("packageId"),
+                    packageName = item.optString("packageName"),
+                    ref = item.optString("bookingReference"),
+                    status = item.optString("status", "Pending"),
+                    bookingDate = item.optString("bookingDate"),
+                    totalAmount = item.optDouble("totalAmount"),
+                    notes = item.optString("notes")
+                        .takeIf { it != "null" && it.isNotBlank() }
+                )
+            }
+        } finally {
+            connection.disconnect()
+        }
+    }
+
+
+suspend fun createStaffBooking(
+    applicationId: Int,
+    notes: String?
+) = withContext(Dispatchers.IO) {
+    val user = FirebaseAuth.getInstance().currentUser
+        ?: throw Exception("Please sign in again.")
+
+    val token = user.getIdToken(false).await().token
+        ?: throw Exception("Could not obtain Firebase token.")
+
+    val url = URL(
+        "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffBookings"
+    )
+    val connection = url.openConnection() as HttpURLConnection
+
+    try {
+        connection.requestMethod = "POST"
+        connection.doOutput = true
+        connection.setRequestProperty("Authorization", "Bearer $token")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.connectTimeout = 15000
+        connection.readTimeout = 15000
+
+        val body = JSONObject().apply {
+            put("applicationId", applicationId)
+            put("notes", notes ?: JSONObject.NULL)
+        }
+
+        connection.outputStream.bufferedWriter().use {
+            it.write(body.toString())
+        }
+
+        if (connection.responseCode != 200) {
+            val error = connection.errorStream
+                ?.bufferedReader()?.use { it.readText() }
+
+            throw Exception(
+                error?.takeIf { it.isNotBlank() }
+                    ?: "Unable to create booking. HTTP ${connection.responseCode}"
+            )
+        }
+    } finally {
+        connection.disconnect()
+    }
+}
+
+
+suspend fun updateStaffBookingStatus(
+    bookingId: Int,
+    status: String
+) = withContext(Dispatchers.IO) {
+    val user = FirebaseAuth.getInstance().currentUser
+        ?: throw Exception("Please sign in again.")
+
+    val token = user.getIdToken(false).await().token
+        ?: throw Exception("Could not obtain Firebase token.")
+
+    val url = URL(
+        "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffBookings/$bookingId/status"
+    )
+    val connection = url.openConnection() as HttpURLConnection
+
+    try {
+        connection.requestMethod = "PUT"
+        connection.doOutput = true
+        connection.setRequestProperty("Authorization", "Bearer $token")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.connectTimeout = 15000
+        connection.readTimeout = 15000
+
+        val body = JSONObject().apply {
+            put("status", status)
+        }
+
+        connection.outputStream.bufferedWriter().use {
+            it.write(body.toString())
+        }
+
+        if (connection.responseCode != 200) {
+            val error = connection.errorStream
+                ?.bufferedReader()?.use { it.readText() }
+
+            throw Exception(
+                error?.takeIf { it.isNotBlank() }
+                    ?: "Unable to update booking. HTTP ${connection.responseCode}"
+            )
+        }
+    } finally {
+        connection.disconnect()
+    }
+}
+
+suspend fun fetchStaffPackages(): List<TravelPackage> =
+    withContext(Dispatchers.IO) {
+        val user = FirebaseAuth.getInstance().currentUser
+            ?: throw Exception("Please sign in again.")
+
+        val token = user.getIdToken(false).await().token
+            ?: throw Exception("Could not obtain Firebase token.")
+
+        val url = URL(
+            "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffPackages"
+        )
+        val connection = url.openConnection() as HttpURLConnection
+
+        try {
+            connection.requestMethod = "GET"
+            connection.setRequestProperty("Authorization", "Bearer $token")
+            connection.connectTimeout = 15000
+            connection.readTimeout = 15000
+
+            if (connection.responseCode != 200) {
+                throw Exception("Packages API returned HTTP ${connection.responseCode}")
+            }
+
+            val json = JSONArray(
+                connection.inputStream.bufferedReader().use { it.readText() }
+            )
+
+            (0 until json.length()).map { index ->
+                val item = json.getJSONObject(index)
+
+                TravelPackage(
+                    id = item.optInt("id"),
+                    name = item.optString("name"),
+                    description = item.optString("description").takeIf { it != "null" },
+                    price = item.optDouble("price"),
+                    durationDays = item.optInt("durationDays"),
+                    departureDate = item.optString("departureDate").takeIf { it != "null" },
+                    returnDate = item.optString("returnDate").takeIf { it != "null" },
+                    isActive = item.optBoolean("isActive", true)
+                )
+            }
+        } finally {
+            connection.disconnect()
+        }
+    }
+
+suspend fun saveStaffPackage(
+    travelPackage: TravelPackage
+) = withContext(Dispatchers.IO) {
+    val user = FirebaseAuth.getInstance().currentUser
+        ?: throw Exception("Please sign in again.")
+
+    val token = user.getIdToken(false).await().token
+        ?: throw Exception("Could not obtain Firebase token.")
+
+    val body = JSONObject().apply {
+        put("packageName", travelPackage.name)
+        put("description", travelPackage.description ?: JSONObject.NULL)
+        put("price", travelPackage.price)
+        put("durationDays", travelPackage.durationDays)
+        put("departureDate", travelPackage.departureDate ?: JSONObject.NULL)
+        put("returnDate", travelPackage.returnDate ?: JSONObject.NULL)
+        put("isActive", travelPackage.isActive)
+    }
+
+    val isNew = travelPackage.id == 0
+    val endpoint = if (isNew) {
+        "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffPackages"
+    } else {
+        "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffPackages/${travelPackage.id}"
+    }
+
+    val connection = URL(endpoint).openConnection() as HttpURLConnection
+
+    try {
+        connection.requestMethod = if (isNew) "POST" else "PUT"
+        connection.setRequestProperty("Authorization", "Bearer $token")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.connectTimeout = 15000
+        connection.readTimeout = 15000
+        connection.doOutput = true
+
+        connection.outputStream.use {
+            it.write(body.toString().toByteArray(Charsets.UTF_8))
+        }
+
+        if (connection.responseCode !in 200..299) {
+            val error = connection.errorStream?.bufferedReader()?.use { it.readText() }
+            throw Exception("Package save failed (HTTP ${connection.responseCode}): ${error ?: "Unknown error"}")
+        }
+    } finally {
+        connection.disconnect()
+    }
+}
+
+suspend fun updateStaffPackageActive(
+    packageId: Int,
+    isActive: Boolean
+) = withContext(Dispatchers.IO) {
+    val user = FirebaseAuth.getInstance().currentUser
+        ?: throw Exception("Please sign in again.")
+
+    val token = user.getIdToken(false).await().token
+        ?: throw Exception("Could not obtain Firebase token.")
+
+    val url = URL(
+        "${BuildConfig.API_BASE_URL.trimEnd('/')}/api/StaffPackages/$packageId/active"
+    )
+    val connection = url.openConnection() as HttpURLConnection
+
+    try {
+        connection.requestMethod = "PATCH"
+        connection.setRequestProperty("Authorization", "Bearer $token")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.connectTimeout = 15000
+        connection.readTimeout = 15000
+        connection.doOutput = true
+
+        val body = JSONObject().put("isActive", isActive)
+        connection.outputStream.use {
+            it.write(body.toString().toByteArray(Charsets.UTF_8))
+        }
+
+        if (connection.responseCode != 200) {
+            val error = connection.errorStream?.bufferedReader()?.use { it.readText() }
+            throw Exception("Package status update failed (HTTP ${connection.responseCode}): ${error ?: "Unknown error"}")
+        }
+    } finally {
+        connection.disconnect()
     }
 }
 
@@ -1178,6 +2077,7 @@ fun DashboardScreen(
     customerCount: Int,
     applicationCount: Int,
     documentCount: Int,
+    bookingsCount: Int,
     onNavigate: (String) -> Unit
 ) {
     Column(
@@ -1232,8 +2132,8 @@ fun DashboardScreen(
 
             StatCard(
                 "Bookings",
-                "—",
-                "Not connected yet",
+                bookingsCount.toString(),
+                "Total bookings",
                 Modifier.weight(1f)
             )
         }

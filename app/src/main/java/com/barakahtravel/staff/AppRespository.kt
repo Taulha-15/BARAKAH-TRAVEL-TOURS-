@@ -1,5 +1,11 @@
 package com.barakahtravel.staff
+/*
+ * AppRespository.kt – repository wrapping the Retrofit ApiService (one function per API call).
+ * Part of the first prototype's REST layer; the current screens call the API directly from
+ * MainActivity.kt. Kept to show the repository pattern (UI -> repository -> API).
+ */
 
+/** Single access point for data; the UI never talks to Retrofit directly. */
 class AppRepository(private val api: ApiService) {
 
     suspend fun getCustomers(): List<Customer> = api.getCustomers()

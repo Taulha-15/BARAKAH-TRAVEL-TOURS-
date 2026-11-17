@@ -1,4 +1,9 @@
 package com.barakahtravel.staff
+/*
+ * StaffAdmin.kt – alternative admin screens from an earlier iteration of the app.
+ * This activity is not registered in AndroidManifest.xml, so it is not launched;
+ * the live screens are in MainActivity.kt.
+ */
 
 import android.content.Context
 import android.os.Bundle

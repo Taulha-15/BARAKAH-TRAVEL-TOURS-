@@ -1,7 +1,12 @@
 package com.barakahtravel.staff
+/*
+ * APIService.kt – Retrofit interface describing the REST endpoints (GET/POST/PUT per path).
+ * Reference: Retrofit documentation (square.github.io/retrofit).
+ */
 
 import retrofit2.http.*
 
+/** Each function is one HTTP call; Retrofit generates the implementation. */
 interface ApiService {
 
     @POST("api/auth/register")

@@ -1,11 +1,19 @@
 package com.barakahtravel.staff
+/*
+ * AuthManager.kt – email/password session handling from the first prototype's REST login.
+ * Note: the current screens sign staff in with Google and Firebase inside MainActivity.kt,
+ * so this class is not used by the running UI. It is kept as a documented example of
+ * handling API success, HTTP errors and network errors with a sealed result type.
+ */
 
+import android.util.Log
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import retrofit2.HttpException
 
+/** Outcome of a sign-in attempt: Success carries the session, Failure carries a message. */
 sealed class AuthResult {
     data class Success(val session: AuthResponse) : AuthResult()
     data class Failure(val message: String) : AuthResult()
@@ -52,14 +60,17 @@ class AuthManager(
 
     private suspend fun call(block: suspend () -> AuthResponse): AuthResult = try {
         val res = block()
+        Log.d("BarakahStaff", "AuthManager: sign-in call succeeded, saving token")
         tokenStore.save(res.token)
         session = res
         AuthResult.Success(res)
     } catch (e: HttpException) {
         val msg = e.response()?.errorBody()?.string()?.takeIf { it.isNotBlank() }
             ?: "HTTP ${e.code()}"
+        Log.w("BarakahStaff", "AuthManager: HTTP error ${e.code()}")
         AuthResult.Failure(msg)
     } catch (e: Exception) {
+        Log.e("BarakahStaff", "AuthManager: network error ${e.message}", e)
         AuthResult.Failure(e.message ?: "Network error")
     }
 }

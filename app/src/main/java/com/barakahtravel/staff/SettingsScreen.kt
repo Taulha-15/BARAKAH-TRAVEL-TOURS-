@@ -1,4 +1,9 @@
 package com.barakahtravel.staff
+/*
+ * SettingsScreen.kt – Settings page: staff profile (display name), preferences
+ * (dark mode, notifications), account security and sign out.
+ * State is held by the caller (MainActivity.kt) and passed in as parameters.
+ */
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+// Stateless composable: shows the values it is given and reports changes through callbacks
 @Composable
 fun SettingsScreen(
     staffName: String,
