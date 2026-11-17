@@ -37,6 +37,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -186,6 +187,8 @@ fun BarakahApp() {
                     val realCustomers = fetchStaffCustomers()
                     customers.clear()
                     customers.addAll(realCustomers)
+                } catch (e: CancellationException) {
+                    throw e
                 } catch (e: Exception) {
                     customerLoadError =
                         e.message ?: "Unable to load customers."
@@ -198,6 +201,8 @@ fun BarakahApp() {
                     val realApplications = fetchStaffApplications()
                     applications.clear()
                     applications.addAll(realApplications)
+                } catch (e: CancellationException) {
+                    throw e
                 } catch (e: Exception) {
                     notice =
                         e.message ?: "Unable to load applications."
@@ -210,6 +215,8 @@ fun BarakahApp() {
                     val realDocuments = fetchStaffDocuments()
                     documents.clear()
                     documents.addAll(realDocuments)
+                } catch (e: CancellationException) {
+                    throw e
                 } catch (e: Exception) {
                     notice =
                         e.message ?: "Unable to load documents."
@@ -311,6 +318,8 @@ fun BarakahApp() {
                                         }
 
                                         notice = "Registration code ready: $code"
+                                    } catch (e: CancellationException) {
+                                        throw e
                                     } catch (e: Exception) {
                                         notice = e.message ?: "Unable to generate registration code."
                                     }
@@ -339,6 +348,8 @@ fun BarakahApp() {
                                                 selectedCustomer = updated
                                                 notice = "Customer updated successfully in Azure SQL."
                                                 page = "Customers"
+                                            } catch (e: CancellationException) {
+                                                throw e
                                             } catch (e: Exception) {
                                                 notice = e.message ?: "Unable to save customer."
                                             }
@@ -360,6 +371,8 @@ fun BarakahApp() {
                                     }
 
                                     notice = "Application #$id updated to $status in Azure SQL."
+                                } catch (e: CancellationException) {
+                                    throw e
                                 } catch (e: Exception) {
                                     notice = e.message ?: "Unable to update application status."
                                 }
@@ -382,6 +395,8 @@ fun BarakahApp() {
 
                                         notice = "Document #$id updated to $status in Azure SQL."
 
+                                    } catch (e: CancellationException) {
+                                        throw e
                                     } catch (e: Exception) {
                                         notice = e.message
                                             ?: "Unable to update document status."
@@ -415,6 +430,8 @@ fun BarakahApp() {
 
                                         context.startActivity(intent)
 
+                                    } catch (e: CancellationException) {
+                                        throw e
                                     } catch (e: Exception) {
                                         notice = e.message ?: "Unable to open document."
                                     }
@@ -768,6 +785,8 @@ suspend fun downloadStaffDocument(
                     input.copyTo(output)
                 }
             }
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             file.delete()
             throw e
