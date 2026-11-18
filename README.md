@@ -11,7 +11,7 @@
 
 ## Demonstration Video
 
-youtube link:
+youtube link:https://youtu.be/SPgfXXcivIg?si=JehzrTYxFq_a7WyZ
 
 The demonstration video shows the Android staff application running on a physical Android phone including all feautures.
 
